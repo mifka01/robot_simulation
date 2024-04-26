@@ -1,0 +1,14 @@
+.DS_STORE
+.vscode/
+program
+*.tar
+*.zip
+
+.php-cs-fixer.cache
+is_it_ok.sh
+compile_commands.json
+.cache/
+
+bin/
+build/
+doc/
