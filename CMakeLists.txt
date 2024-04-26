@@ -13,8 +13,8 @@ add_compile_options(-Wall -Wextra)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 # Source
-file(GLOB SOURCES "src/*.cpp")
-file(GLOB HEADERS "include/*.hpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.hpp")
 
 include_directories(include)
 
