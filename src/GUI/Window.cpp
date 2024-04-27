@@ -1,8 +1,10 @@
 #include "GUI/Window.hpp"
+#include <QFileDialog>
 #include <QHBoxLayout>
+#include <QString>
+#include <iostream>
+#include "GUI/MapLoader.hpp"
 #include "GUI/Settings.hpp"
-#include "GUI/Widget/ControlsWidget.hpp"
-#include "GUI/Widget/VisualizationWidget.hpp"
 
 Window::Window(QWidget* parent) : QMainWindow(parent) {
   setWindowTitle(Settings::TITLE);
@@ -14,15 +16,43 @@ Window::Window(QWidget* parent) : QMainWindow(parent) {
   QHBoxLayout* layout = new QHBoxLayout(centralWidget);
   layout->setContentsMargins(0, 0, 0, 0);
 
-  // Create visualization widget
-  VisualizationWidget* visualizationWidget =
-      new VisualizationWidget(centralWidget);
-  visualizationWidget->setSizePolicy(QSizePolicy::Expanding,
-                                     QSizePolicy::Preferred);
-  layout->addWidget(visualizationWidget, 3);
+  visualizationWidget.setSizePolicy(QSizePolicy::Expanding,
+                                    QSizePolicy::Preferred);
+  layout->addWidget(&visualizationWidget, 3);
 
   // Create controls widget
-  ControlsWidget* controls = new ControlsWidget(centralWidget);
-  controls->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-  layout->addWidget(controls, 1);
+  controls.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+  layout->addWidget(&controls, 1);
+
+  updateTimer.setInterval(1000 / Settings::FPS);
+
+  connect(&updateTimer, &QTimer::timeout, this, &Window::onTick);
+  connect(&controls, &ControlsWidget::loadMapClicked, this, &Window::onLoadMap);
+  connect(&controls, &ControlsWidget::startClicked, this, &Window::onStart);
+  connect(&controls, &ControlsWidget::stopClicked, this, &Window::onStop);
+}
+
+void Window::onLoadMap() {
+  QString filePath = QFileDialog::getOpenFileName(this, tr("Open Map"), "",
+                                                  tr("JSON Files (*.json)"));
+  if (filePath.isEmpty()) {
+    return;
+  }
+  auto map = MapLoader::loadMap(filePath);
+  simulation.setMap(map, visualizationWidget.width(),
+                    visualizationWidget.height());
+  visualizationWidget.setMap(simulation.getMap());
+}
+
+void Window::onStart() {
+  updateTimer.start();
+}
+
+void Window::onStop() {
+  updateTimer.stop();
+}
+
+void Window::onTick() {
+  simulation.run();
+  visualizationWidget.update();
 }
