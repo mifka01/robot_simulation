@@ -11,6 +11,7 @@ add_compile_options(-Wall -Wextra)
 
 # Qt
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+set(CMAKE_AUTOMOC ON)
 
 # Source
 file(GLOB_RECURSE SOURCES "src/*.cpp")
