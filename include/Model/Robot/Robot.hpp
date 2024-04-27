@@ -7,6 +7,7 @@ class Robot {
   int diameter;
   int angle;
   int speed;
+  int type;
 
  public:
   Robot(int x, int y, int diameter, int angle, int speed)
@@ -26,6 +27,7 @@ class Robot {
   int getDiameter() const { return diameter; }
   int getAngle() const { return angle; }
   int getSpeed() const { return speed; }
+  int getType() const { return type; }
 
   virtual ~Robot() {}  // Virtual destructor
 };
