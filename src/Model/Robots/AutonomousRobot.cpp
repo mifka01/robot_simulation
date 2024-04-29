@@ -1,21 +1,22 @@
 #include "Model/Robot/AutonomousRobot.hpp"
-#include <iostream>
+#include <cmath>
 
 void AutonomousRobot::move() {
-  x += speed;
-  y += speed;
-}
+  double dx = speed * cos(angle);
+  double dy = speed * sin(angle);
+  x += dx;
+  y += dy;
 
-void AutonomousRobot::stop() {
-  std::cout << "Robot is stopped" << std::endl;
+  boundingBox.move(dx, dy);
+  viewBox.move(dx, dy);
 }
 
 void AutonomousRobot::turnLeft() {
-  // Turn the robot left
-  std::cout << "Robot is turning left" << std::endl;
+    angle -= rotateAngle;
+    viewBox.rotate(-rotateAngle, x + diameter / 2 , y + diameter / 2);
 }
 
 void AutonomousRobot::turnRight() {
-  // Turn the robot right
-  std::cout << "Robot is turning right" << std::endl;
+    angle += rotateAngle;
+    viewBox.rotate(rotateAngle, x + diameter / 2 , y + diameter / 2);
 }
