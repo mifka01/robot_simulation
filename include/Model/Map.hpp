@@ -4,6 +4,7 @@
 #include <vector>
 #include "Obstacle.hpp"
 #include "Robot/Robot.hpp"
+#include <memory>
 
 class Map {
  private:
@@ -12,12 +13,16 @@ class Map {
   std::vector<std::shared_ptr<Robot>> robots = {};
   std::vector<std::shared_ptr<Obstacle>> obstacles = {};
 
+  bool isOutOfBounds(double x, double y, int w, int h) const;
+  void adjustPosition(double& x, double& y, int w, int h);
+
+
  public:
   // map
   //  robots: [{type: 0, x: 0, y: 0, diameter: 0, angle: 0, speed: 0}]
   //  obstacles: [{x: 0, y: 0, width: 0, height: 0}]
   void setMap(
-      const std::map<std::string, std::vector<std::map<std::string, int>>>& map,
+      const std::map<std::string, std::vector<std::map<std::string, double>>>& map,
       int width,
       int height);
 

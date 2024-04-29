@@ -4,7 +4,7 @@
 #include <QString>
 #include <iostream>
 #include "GUI/MapLoader.hpp"
-#include "GUI/Settings.hpp"
+#include "Settings.hpp"
 
 Window::Window(QWidget* parent) : QMainWindow(parent) {
   setWindowTitle(Settings::TITLE);
@@ -42,6 +42,7 @@ void Window::onLoadMap() {
   simulation.setMap(map, visualizationWidget.width(),
                     visualizationWidget.height());
   visualizationWidget.setMap(simulation.getMap());
+  visualizationWidget.update();
 }
 
 void Window::onStart() {

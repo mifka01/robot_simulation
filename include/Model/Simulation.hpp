@@ -11,7 +11,7 @@ class Simulation {
   Simulation() : map(std::make_shared<Map>()) {}
   void run();
   void setMap(
-      const std::map<std::string, std::vector<std::map<std::string, int>>>& map,
+      const std::map<std::string, std::vector<std::map<std::string, double>>>& map,
       int width,
       int height);
   std::shared_ptr<Map> getMap() { return map; }

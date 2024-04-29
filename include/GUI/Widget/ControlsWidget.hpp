@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include <Qobject>
+#include <QObject>
 
 class ControlsWidget : public QWidget {
   Q_OBJECT
