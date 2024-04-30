@@ -59,7 +59,24 @@ void Map::setMap(
         adjustPosition(x, y, w,h);
     }
 
-    Obstacle obs(x,y,w,h);
-    obstacles.push_back(std::make_shared<Obstacle>(obs));
+    addObstacle(x, y, w, h);
+  }
+}
+
+void Map::addObstacle(double x, double y, double width, double height) {
+  Obstacle obs(x, y, width, height);
+  obstacles.push_back(std::make_shared<Obstacle>(obs));
+}
+
+void Map::addRobot(double x, double y, double diameter, double angle, int speed, int type) {
+  if (isOutOfBounds(x, y, diameter, diameter)) {
+    adjustPosition(x, y, diameter, diameter);
+  }
+  if (type == 0) {
+    ManualRobot manualRobot(x, y, diameter, angle, speed);
+    robots.push_back(std::make_shared<ManualRobot>(manualRobot));
+  } else {
+    AutonomousRobot autoRobot(x, y, diameter, angle, speed);
+    robots.push_back(std::make_shared<AutonomousRobot>(autoRobot));
   }
 }
