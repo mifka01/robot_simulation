@@ -10,19 +10,36 @@ struct Point {
 class BoundingBox {
 private:
     std::vector<Point> points;
+    // Point topLeft;
+    // Point topRight;
+    // Point bottomRight;
+    // Point bottomLeft;
 
 public:
-    BoundingBox(Point p1, Point p2, Point p3, Point p4) {
-        points.push_back(p1);
-        points.push_back(p2);
-        points.push_back(p3);
-        points.push_back(p4);
+    BoundingBox(Point topLeft, Point topRight, Point bottomRight, Point bottomLeft){
+        points.push_back(topLeft);
+        points.push_back(topRight);
+        points.push_back(bottomRight);
+        points.push_back(bottomLeft);
     }
+
+    void update(double x, double y, double width, double height);
 
     bool intersects(const BoundingBox &other) const;
 
+    bool contains(const Point &point) const;
+
     void move(double dx, double dy);
 
-    std::vector<Point>& getPoints() { return points; }
+    void setPoints(Point topLeft, Point topRight, Point bottomRight, Point bottomLeft) {
+        points[0] = topLeft;
+        points[1] = topRight;
+        points[2] = bottomRight;
+        points[3] = bottomLeft;
+    }
+
+    std::vector<Point> &getPoints() {
+        return points;
+    }
 };
 
