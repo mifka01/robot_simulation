@@ -14,13 +14,13 @@ class Obstacle {
       : x(x), y(y), width(width), height(height) ,
         boundingBox({x,y}, {x + width, y + height}, {x, y + height}, {x +  width,y}){}
 
-  void setX(double x) { this->x = x; }
-  void setY(double y) { this->y = y; }
-
+  void setX(double x) { this->x = x; this->boundingBox.update(x, y, width, height);}
+  void setY(double y) { this->y = y; this->boundingBox.update(x, y, width, height);}
 
   double getX() const { return x; }
   double getY() const { return y; }
   double getWidth() const { return width; }
   double getHeight() const { return height; }
+
   BoundingBox getBoundingBox() const { return boundingBox; }
 };

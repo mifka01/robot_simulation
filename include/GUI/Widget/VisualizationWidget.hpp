@@ -2,23 +2,20 @@
 #include <QPainter>
 #include <QWidget>
 #include <memory>
+#include "Model/IMap.hpp"
 #include "Model/Map.hpp"
 
 class VisualizationWidget : public QWidget {
   Q_OBJECT
-  std::shared_ptr<Map> map;
-
-  // bool isWithinBounds(int x, int y) {
-  //   return x >= 0 && x < width() && y >= 0 && y < height();
-  // }
-  //
-  // std::pair<int, int> adjustCoordinates(int x, int y, int w, int h);
+  std::shared_ptr<IMap> map;
+  std::shared_ptr<Obstacle> selectedObstacle;
+  std::shared_ptr<Robot> selectedRobot;
 
  public:
   explicit VisualizationWidget(QWidget* parent = nullptr)
       : QWidget(parent), map(std::make_shared<Map>()) {}
 
-  void setMap(std::shared_ptr<Map> map) { this->map = map; }
+  void setMap(std::shared_ptr<IMap> map) { this->map = map; }
 
  protected:
   void paintEvent(QPaintEvent* event) override;
@@ -26,4 +23,8 @@ class VisualizationWidget : public QWidget {
   void resizeEvent(QResizeEvent* event) override;
 
   void drawBorder(QPainter& painter);
+
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
 };

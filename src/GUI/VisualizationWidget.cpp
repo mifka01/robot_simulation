@@ -2,7 +2,7 @@
 #include "Settings.hpp"
 #include <QPainter>
 #include <cmath>
-#include <iostream>
+#include <QMouseEvent>
 
 void VisualizationWidget::drawBorder(QPainter &painter) {
   painter.setBrush(Qt::white);
@@ -53,15 +53,6 @@ void VisualizationWidget::paintEvent(QPaintEvent *event) {
     painter.setBrush(Qt::red);
     painter.drawRect(obstacle->getX(), obstacle->getY(), obstacle->getWidth(),
                      obstacle->getHeight());
-
-    auto box = obstacle->getBoundingBox();
-    painter.setBrush(Qt::red);
-    auto points = box.getPoints();
-    QPolygonF polygon;
-    for (int i = 0; i < 4; i++) {
-      polygon << QPointF(points[i].x, points[i].y);
-    }
-    painter.drawPolygon(polygon);
   }
 }
 
@@ -70,3 +61,46 @@ void VisualizationWidget::resizeEvent(QResizeEvent *event) {
   map->setWidth(width());
   map->setHeight(height());
 }
+
+void VisualizationWidget::mousePressEvent(QMouseEvent* event) {
+    double x = event->pos().x();
+    double y = event->pos().y();
+
+     for (auto& obstacle : map->getObstacles()) {
+        if (obstacle->getBoundingBox().contains({x, y})) {
+            selectedObstacle = obstacle;
+            return;
+        }
+    }
+    for (auto& robot : map->getRobots()) {
+        if (robot->getBoundingBox().contains({x, y})) {
+            selectedRobot = robot;
+            return;
+        }
+    }
+
+}
+
+void VisualizationWidget::mouseMoveEvent(QMouseEvent* event) {
+    if (selectedObstacle) {
+        selectedObstacle->setX(event->pos().x() - selectedObstacle->getWidth() / 2);
+        selectedObstacle->setY(event->pos().y() - selectedObstacle->getHeight() / 2);
+        update();
+    }
+
+    if (selectedRobot) {
+        selectedRobot->setX(event->pos().x() - selectedRobot->getDiameter() / 2);
+        selectedRobot->setY(event->pos().y() - selectedRobot->getDiameter() / 2);
+        update();
+    }
+}
+
+void VisualizationWidget::mouseReleaseEvent(QMouseEvent* event) {
+    if(selectedObstacle){
+        selectedObstacle = nullptr;
+    }
+    if(selectedRobot){
+        selectedRobot = nullptr;
+    }
+}
+

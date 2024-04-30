@@ -1,28 +1,65 @@
-#include "GUI/Widget/ControlsWidget.hpp"
 #include <QHBoxLayout>
 #include <QLineEdit>
-#include <QPushButton>
 #include <QVBoxLayout>
+#include <QSpinBox>
+#include "GUI/Button.hpp"
+#include "GUI/Label.hpp"
+
+#include "GUI/Widget/ControlsWidget.hpp"
+#include "Model/Map.hpp"
 
 ControlsWidget::ControlsWidget(QWidget* parent) : QWidget(parent) {
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  // load empty map
+map = std::make_shared<Map>();
 
-  QHBoxLayout* buttons = new QHBoxLayout(this);
+QVBoxLayout* layout = new QVBoxLayout(this);
 
-  QPushButton* loadMap = new QPushButton("load", this);
-  buttons->addWidget(loadMap);
-  connect(loadMap, &QPushButton::clicked, this,
-          &ControlsWidget::onLoadMapClicked);
+QVBoxLayout* mapControls = new QVBoxLayout(layout->widget());
+Label* mapLabel = new Label("Map Controls", this);
+mapControls->addWidget(mapLabel);
 
-  QPushButton* start = new QPushButton("start", this);
-  buttons->addWidget(start);
-  connect(start, &QPushButton::clicked, this, &ControlsWidget::onStartClicked);
+QHBoxLayout* mapButtons = new QHBoxLayout(this);
+Button* loadMap = new Button("load", this);
+mapButtons->addWidget(loadMap);
+connect(loadMap, &Button::clicked, this, &ControlsWidget::onLoadMapClicked);
+mapControls->addLayout(mapButtons);
+layout->addLayout(mapControls);
 
-  QPushButton* stop = new QPushButton("stop", this);
-  buttons->addWidget(stop);
-  connect(stop, &QPushButton::clicked, this, &ControlsWidget::onStopClicked);
+Label* simulationLabel = new Label("Simulation Controls", this);
+layout->addWidget(simulationLabel);
 
-  layout->addLayout(buttons);
+QHBoxLayout* simulationButtons = new QHBoxLayout(this);
+Button* start = new Button("start", this);
+simulationButtons->addWidget(start);
+connect(start, &Button::clicked, this, &ControlsWidget::onStartClicked);
+
+Button* stop = new Button("stop", this);
+simulationButtons->addWidget(stop);
+connect(stop, &Button::clicked, this, &ControlsWidget::onStopClicked);
+layout->addLayout(simulationButtons);
+
+Label* spawnLabel = new Label("Spawn Controls", this);
+layout->addWidget(spawnLabel);
+
+QHBoxLayout* spawnButtons = new QHBoxLayout(this);
+Button* addObstacle = new Button("obstacle", this);
+spawnButtons->addWidget(addObstacle);
+QSpinBox* obstacleWidth = new QSpinBox(this);
+QSpinBox* obstacleHeight= new QSpinBox(this);
+obstacleWidth->setValue(40);
+obstacleHeight->setValue(40);
+obstacleWidth->setRange(10, 1000);
+obstacleHeight->setRange(10, 1000);
+spawnButtons->addWidget(obstacleWidth);
+spawnButtons->addWidget(obstacleHeight);
+
+connect(addObstacle, &Button::clicked, this, [this, obstacleWidth, obstacleHeight]() {
+    this->onAddObstacle(obstacleWidth->value(), obstacleHeight->value());
+});
+
+
+layout->addLayout(spawnButtons);
+
 }
 
 void ControlsWidget::onLoadMapClicked() {
@@ -35,4 +72,10 @@ void ControlsWidget::onStartClicked() {
 
 void ControlsWidget::onStopClicked() {
   emit stopClicked();
+}
+
+void ControlsWidget::onAddObstacle(int width, int height) {
+  emit stopClicked();
+  map->addObstacle(map->getWidth() / 2, map->getHeight() / 2, width, height);
+  emit updateMap();
 }

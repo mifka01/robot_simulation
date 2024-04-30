@@ -20,10 +20,12 @@ class Window : public QMainWindow {
   void start();
   void stop();
   void tick();
+  void visualize();
 
  private slots:
   void onLoadMap();
   void onStart();
   void onStop();
   void onTick();
+  void onVisualize();
 };

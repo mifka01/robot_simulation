@@ -2,7 +2,6 @@
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QString>
-#include <iostream>
 #include "GUI/MapLoader.hpp"
 #include "Settings.hpp"
 
@@ -26,10 +25,18 @@ Window::Window(QWidget* parent) : QMainWindow(parent) {
 
   updateTimer.setInterval(1000 / Settings::FPS);
 
+  // Create empty map
+  simulation.setMap(MapLoader::getEmptyMap(), visualizationWidget.width(),
+                    visualizationWidget.height());
+  controls.setMap(simulation.getMap());
+  visualizationWidget.setMap(simulation.getMap());
+
   connect(&updateTimer, &QTimer::timeout, this, &Window::onTick);
   connect(&controls, &ControlsWidget::loadMapClicked, this, &Window::onLoadMap);
   connect(&controls, &ControlsWidget::startClicked, this, &Window::onStart);
   connect(&controls, &ControlsWidget::stopClicked, this, &Window::onStop);
+  connect(&controls, &ControlsWidget::updateMap, this, &Window::onVisualize);
+
 }
 
 void Window::onLoadMap() {
@@ -41,8 +48,9 @@ void Window::onLoadMap() {
   auto map = MapLoader::loadMap(filePath);
   simulation.setMap(map, visualizationWidget.width(),
                     visualizationWidget.height());
+  controls.setMap(simulation.getMap());
   visualizationWidget.setMap(simulation.getMap());
-  visualizationWidget.update();
+  emit onVisualize();
 }
 
 void Window::onStart() {
@@ -55,5 +63,9 @@ void Window::onStop() {
 
 void Window::onTick() {
   simulation.run();
+  emit onVisualize();
+}
+
+void Window::onVisualize() {
   visualizationWidget.update();
 }
