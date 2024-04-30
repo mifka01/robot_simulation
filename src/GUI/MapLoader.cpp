@@ -31,6 +31,10 @@ MapLoader::loadMap(QString path) {
       map[key.toStdString()] = vec;
     }
   }
-
   return map;
+}
+
+const std::map<std::string, std::vector<std::map<std::string, double>>>
+MapLoader::getEmptyMap() {
+  return {{"robots", {}}, {"obstacles", {}}};
 }
