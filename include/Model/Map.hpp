@@ -5,8 +5,9 @@
 #include "Obstacle.hpp"
 #include "Robot/Robot.hpp"
 #include <memory>
+#include "IMap.hpp"
 
-class Map {
+class Map : public IMap{
  private:
   int width = 0;
   int height = 0;
@@ -18,21 +19,24 @@ class Map {
 
 
  public:
-  // map
-  //  robots: [{type: 0, x: 0, y: 0, diameter: 0, angle: 0, speed: 0}]
-  //  obstacles: [{x: 0, y: 0, width: 0, height: 0}]
+    Map() = default;
+
   void setMap(
       const std::map<std::string, std::vector<std::map<std::string, double>>>& map,
       int width,
-      int height);
+      int height) override;
 
-  Robot& getRobot(int index) { return *robots.at(index); }
-  Obstacle& getObstacle(int index) { return *obstacles.at(index); }
-  std::vector<std::shared_ptr<Robot>>& getRobots() { return robots; }
-  std::vector<std::shared_ptr<Obstacle>>& getObstacles() { return obstacles; }
-  int getWidth() { return width; }
-  int getHeight() { return height; }
+  Robot& getRobot(int index) override { return *robots.at(index); } 
+  Obstacle& getObstacle(int index) override { return *obstacles.at(index); }
+  std::vector<std::shared_ptr<Robot>>& getRobots() override { return robots; }
+  std::vector<std::shared_ptr<Obstacle>>& getObstacles() override { return obstacles; }
+  int getWidth() override { return width; }
+  int getHeight() override { return height; }
 
-  void setWidth(int width) { this->width = width; }
-  void setHeight(int height) { this->height = height; }
+  void setWidth(int width) override { this->width = width; }
+  void setHeight(int height) override { this->height = height; }
+
+  void addObstacle(double x, double y, double width, double height) override;
+  void addRobot(double x, double y, double diameter, double angle, int speed, int type) override;
 };
+
