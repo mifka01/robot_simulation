@@ -17,16 +17,29 @@ protected:
 public:
   Robot(double x, double y, double diameter, double rotateAngle, int speed)
       : x(x), y(y), diameter(diameter), rotateAngle(rotateAngle), speed(speed),
-        boundingBox({x,y}, {x + diameter, y + diameter}, {x, y +diameter}, {x +  diameter,y}), viewBox({x + diameter,y}, {x + diameter, y + diameter}, {x + diameter *2, y + diameter}, {x +  diameter *2 ,y}) {}
+        boundingBox({x, y}, {x + diameter, y }, {x +  diameter, y + diameter}, {x, y + diameter}), 
+        viewBox({x + diameter, y}, {x + diameter * 2, y }, {x + diameter * 2 , y + diameter }, {x + diameter , y + diameter }) {}
 
-  virtual void move() = 0;
-  virtual void turnLeft() = 0;
-  virtual void turnRight() = 0;
+  virtual void move();
+  virtual void turnLeft();
+  virtual void turnRight();
+
+  void setX(double x) { 
+        this->x = x; 
+        this->boundingBox.update(x, y, diameter, diameter);
+        this->viewBox.update(x, y, diameter, diameter, angle);
+    }
+  void setY(double y) { 
+        this->y = y; 
+        this->boundingBox.update(x, y, diameter, diameter);
+        this->viewBox.update(x, y, diameter, diameter, angle);
+        ;}
 
   virtual void setDiameter(double diameter) { this->diameter = diameter; }
   virtual void setSpeed(int speed) { this->speed = speed; }
   virtual void setRotateAngle(double angle) { this->rotateAngle = angle; }
   virtual void setAngle(double angle) { this->angle = angle; }
+
 
   double getX() const { return x; }
   double getY() const { return y; }
