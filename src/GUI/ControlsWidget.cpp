@@ -41,20 +41,70 @@ layout->addLayout(simulationButtons);
 Label* spawnLabel = new Label("Spawn Controls", this);
 layout->addWidget(spawnLabel);
 
-QHBoxLayout* spawnButtons = new QHBoxLayout(this);
+QVBoxLayout* spawnButtons = new QVBoxLayout(this);
+
+QHBoxLayout* obstacleButtons = new QHBoxLayout(this);
 Button* addObstacle = new Button("obstacle", this);
-spawnButtons->addWidget(addObstacle);
+obstacleButtons->addWidget(addObstacle);
 QSpinBox* obstacleWidth = new QSpinBox(this);
 QSpinBox* obstacleHeight= new QSpinBox(this);
+
 obstacleWidth->setValue(40);
 obstacleHeight->setValue(40);
 obstacleWidth->setRange(10, 1000);
 obstacleHeight->setRange(10, 1000);
-spawnButtons->addWidget(obstacleWidth);
-spawnButtons->addWidget(obstacleHeight);
+
+obstacleButtons->addWidget(obstacleWidth);
+obstacleButtons->addWidget(obstacleHeight);
+
+spawnButtons->addLayout(obstacleButtons);
+
+QHBoxLayout* robotButtons = new QHBoxLayout(this);
+
+Button* addManualRobot = new Button("Manual Robot", this);
+robotButtons->addWidget(addManualRobot);
+Button* addAutoRobot = new Button("Autonomous Robot", this);
+robotButtons->addWidget(addAutoRobot);
+QSpinBox* diameter = new QSpinBox(this);
+robotButtons->addWidget(diameter);
+
+
+diameter->setValue(20);
+diameter->setRange(5, 500);
+
+
+robotButtons->addWidget(diameter);
+
+QSpinBox* speed = new QSpinBox(this);
+
+speed->setValue(1);
+speed->setRange(1, 100);
+
+robotButtons->addWidget(speed);
+
+
+QSpinBox* angle = new QSpinBox(this);
+
+angle->setValue(1);
+angle->setRange(1, 359);
+
+robotButtons->addWidget(angle);
+
+
+spawnButtons->addLayout(robotButtons);
+
+
 
 connect(addObstacle, &Button::clicked, this, [this, obstacleWidth, obstacleHeight]() {
     this->onAddObstacle(obstacleWidth->value(), obstacleHeight->value());
+});
+
+connect(addManualRobot, &Button::clicked, this, [this, diameter, angle, speed]() {
+    this->onAddRobot(diameter->value(), angle->value(), speed->value(), 0);
+});
+
+connect(addAutoRobot, &Button::clicked, this, [this, diameter, angle, speed]() {
+    this->onAddRobot(diameter->value(), angle->value(), speed->value(), 1);
 });
 
 
@@ -79,3 +129,10 @@ void ControlsWidget::onAddObstacle(int width, int height) {
   map->addObstacle(map->getWidth() / 2, map->getHeight() / 2, width, height);
   emit updateMap();
 }
+
+void ControlsWidget::onAddRobot(double diameter, int angle, int speed, int type) {
+  emit stopClicked();
+  map->addRobot(map->getWidth() / 2, map->getHeight() / 2, diameter, angle, speed, type);
+  emit updateMap();
+}
+

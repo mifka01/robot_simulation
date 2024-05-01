@@ -19,6 +19,7 @@ class ControlsWidget : public QWidget {
   void startClicked();
   void stopClicked();
   void addObstacleClicked();
+  void addRobotClicked();
   void updateMap();
 
  private:
@@ -26,4 +27,5 @@ class ControlsWidget : public QWidget {
   void onStartClicked();
   void onStopClicked();
   void onAddObstacle(int width, int height);
+  void onAddRobot(double diameter, int angle, int speed, int type);
 };
