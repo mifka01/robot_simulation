@@ -7,7 +7,7 @@ constexpr const char* TITLE = "ICP - Robots";
 constexpr const int WINDOW_MIN_W = 1280;
 constexpr const int WINDOW_MIN_H = 720;
 
-constexpr const int FPS = 120;
+constexpr const int FPS = 60;
 
 constexpr const int BORDER_SIZE = 5;
 
