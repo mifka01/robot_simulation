@@ -1,5 +1,4 @@
 #include "Model/Simulation.hpp"
-#include <iostream>
 
 void Simulation::setMap(
     const std::map<std::string, std::vector<std::map<std::string, double>>>
@@ -16,12 +15,21 @@ void Simulation::run() {
 
     for (const auto &obstacle : obstacles) {
       if (robot->getViewBox().intersects(obstacle->getBoundingBox())) {
-        std::cout << "Robot collided with obstacle" << std::endl;
         robot->turnLeft();
         blocked = true;
         break;
       }
     }
+
+    for (const auto &otherRobot : map->getRobots()) {
+      if (robot != otherRobot &&
+          robot->getViewBox().intersects(otherRobot->getBoundingBox())) {
+        robot->turnLeft();
+        blocked = true;
+        break;
+      }
+    }
+
     if (!blocked)
       robot->move();
   }
