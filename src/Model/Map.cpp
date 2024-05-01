@@ -30,53 +30,32 @@ void Map::setMap(
   this->robots.clear();
   this->obstacles.clear();
   for (const auto& robot : map.at("robots")) {
-    int type = robot.at("type");
-    double x = robot.at("x");
-    double y = robot.at("y");
-    double angle = robot.at("angle") * M_PI / 180;
-    double diameter = robot.at("diameter");
-    int speed = robot.at("speed");
-
-    if (isOutOfBounds(x, y, diameter, diameter)){
-        adjustPosition(x, y, diameter, diameter);
-    }
-
-    if (type == 0) {
-      ManualRobot manualRobot(x, y, diameter, angle, speed);
-      robots.push_back(std::make_shared<ManualRobot>(manualRobot));
-    } else {
-      AutonomousRobot autoRobot(x, y, diameter,angle, speed);
-      robots.push_back(std::make_shared<AutonomousRobot>(autoRobot));
-    }
+    addRobot(robot.at("x"), robot.at("y"), robot.at("diameter"), robot.at("angle"), robot.at("speed"), robot.at("type"));
   }
   for (const auto& obstacle : map.at("obstacles")) {
-    double x = obstacle.at("x");
-    double y = obstacle.at("y");
-    int w = obstacle.at("width");
-    int h = obstacle.at("height");
-
-    if (isOutOfBounds(x, y, w, h)) {
-        adjustPosition(x, y, w,h);
-    }
-
-    addObstacle(x, y, w, h);
+    addObstacle(obstacle.at("x"), obstacle.at("y"), obstacle.at("width"), obstacle.at("height"));
   }
 }
 
 void Map::addObstacle(double x, double y, double width, double height) {
+  if (isOutOfBounds(x, y, width, height)) {
+    adjustPosition(x, y, width,height);
+  }
   Obstacle obs(x, y, width, height);
   obstacles.push_back(std::make_shared<Obstacle>(obs));
 }
 
-void Map::addRobot(double x, double y, double diameter, double angle, int speed, int type) {
+void Map::addRobot(double x, double y, double diameter, int angle, int speed, int type) {
   if (isOutOfBounds(x, y, diameter, diameter)) {
     adjustPosition(x, y, diameter, diameter);
   }
+
+  double angleRad = angle * M_PI / 180;
   if (type == 0) {
-    ManualRobot manualRobot(x, y, diameter, angle, speed);
+    ManualRobot manualRobot(x, y, diameter, angleRad, speed);
     robots.push_back(std::make_shared<ManualRobot>(manualRobot));
   } else {
-    AutonomousRobot autoRobot(x, y, diameter, angle, speed);
+    AutonomousRobot autoRobot(x, y, diameter, angleRad, speed);
     robots.push_back(std::make_shared<AutonomousRobot>(autoRobot));
   }
 }
