@@ -10,7 +10,7 @@ protected:
   double diameter;
   double viewAngle;
   double rotateAngle;
-  double collisionDistance;
+  double viewDistance;
   bool rotateClockwise;
   int speed;
   int type;
@@ -18,10 +18,10 @@ protected:
   ViewBox viewBox;
 
 public:
-  Robot(double x, double y, double diameter, double viewAngle, double rotateAngle, double collisionDistance, bool rotateClockwise, int speed)
-      : x(x), y(y), diameter(diameter), viewAngle(viewAngle), rotateAngle(rotateAngle), collisionDistance(collisionDistance), rotateClockwise(rotateClockwise), speed(speed),
+  Robot(double x, double y, double diameter, double viewAngle, double rotateAngle, double viewDistance, bool rotateClockwise, int speed)
+      : x(x), y(y), diameter(diameter), viewAngle(viewAngle), rotateAngle(rotateAngle), viewDistance(viewDistance), rotateClockwise(rotateClockwise), speed(speed),
         boundingBox({x, y}, {x + diameter, y }, {x +  diameter, y + diameter}, {x, y + diameter}), 
-        viewBox({x + diameter, y}, {x + diameter + collisionDistance , y }, {x + diameter + collisionDistance, y + diameter }, {x + diameter , y + diameter }) {
+        viewBox({x + diameter, y}, {x + diameter + viewDistance , y }, {x + diameter + viewDistance, y + diameter }, {x + diameter , y + diameter }) {
             viewBox.rotate(viewAngle, x + diameter / 2 , y + diameter / 2);
         }
 
@@ -33,24 +33,31 @@ public:
   void setX(double x) { 
         this->x = x; 
         this->boundingBox.update(x, y, diameter, diameter);
-        this->viewBox.update(x, y, diameter, diameter,collisionDistance, viewAngle);
+        this->viewBox.update(x, y, diameter, diameter,viewDistance, viewAngle);
     }
   void setY(double y) { 
         this->y = y; 
         this->boundingBox.update(x, y, diameter, diameter);
-        this->viewBox.update(x, y, diameter, diameter, collisionDistance, viewAngle);
+        this->viewBox.update(x, y, diameter, diameter, viewDistance, viewAngle);
         ;}
 
-  virtual void setDiameter(double diameter) { this->diameter = diameter; }
+  virtual void setDiameter(double diameter) { this->diameter = diameter; 
+    this->boundingBox.update(x, y, diameter, diameter);
+    this->viewBox.update(x, y, diameter, diameter, viewDistance, viewAngle);
+  }
+
   virtual void setSpeed(int speed) { this->speed = speed; }
   // rad 
-  virtual void setRotateAngle(double angle) { this->rotateAngle = angle; }
+  virtual void setRotateAngle(double angle) { this->rotateAngle = angle * M_PI / 180; 
+  }
   // rad
-  virtual void setViewAngle(double angle) { this->viewAngle= angle; }
+  virtual void setViewAngle(double angle) { this->viewAngle = angle * M_PI / 180; 
+    this->viewBox.update(x, y, diameter, diameter, viewDistance, viewAngle);
+  }
 
-  virtual void setCollisionDistance(double distance) { 
-    this->collisionDistance = distance; 
-    this->viewBox.update(x, y, diameter, diameter, collisionDistance, viewAngle);
+  virtual void setViewDistance(double distance) { 
+    this->viewDistance = distance; 
+    this->viewBox.update(x, y, diameter, diameter, viewDistance, viewAngle);
   }
 
   virtual void setRotateClockwise(bool clockwise) { this->rotateClockwise = clockwise; }
@@ -60,12 +67,12 @@ public:
   double getDiameter() const { return diameter; }
 
   double getRotateAngle() const { return rotateAngle / M_PI * 180; }
-  double getViewAngle() const { return viewAngle / M_PI * 180; }
+  double getViewAngle() const { return std::fmod(viewAngle / M_PI * 180, 360); }
 
   double getRotateAngleRad() const { return rotateAngle; }
   double getViewAngleRad() const { return viewAngle; }
  
-  double getCollisionDistance() const { return collisionDistance; }
+  double getViewDistance() const { return viewDistance; }
 
   bool getRotateClockwise() const { return rotateClockwise; }
 

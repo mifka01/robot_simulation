@@ -3,16 +3,27 @@
 #include <QWidget>
 #include <QObject>
 #include <memory>
+#include "GUI/Widget/ObstacleParametersWidget.hpp"
+#include "GUI/Widget/RobotParametersWidget.hpp"
 #include "Model/IMap.hpp"
+#include <memory>
 
 class ControlsWidget : public QWidget {
   Q_OBJECT
   std::shared_ptr<IMap> map;
+  ObstacleParametersWidget* obstacleParameters;
+  RobotParametersWidget* robotParameters;
+  
 
  public:
   explicit ControlsWidget(QWidget* parent = nullptr);
 
   void setMap(std::shared_ptr<IMap> map) { this->map = map; }
+
+  void onObstacleSelected(std::shared_ptr<Obstacle> obstacle);
+  void onObstacleDeselected();
+  void onRobotSelected(std::shared_ptr<Robot> robot);
+  void onRobotDeselected();
 
  signals:
   void loadMapClicked();

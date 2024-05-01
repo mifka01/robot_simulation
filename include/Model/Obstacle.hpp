@@ -16,6 +16,8 @@ class Obstacle {
 
   void setX(double x) { this->x = x; this->boundingBox.update(x, y, width, height);}
   void setY(double y) { this->y = y; this->boundingBox.update(x, y, width, height);}
+  void setWidth(double width) { this->width = width; this->boundingBox.update(x, y, width, height);}
+  void setHeight(double height) { this->height = height; this->boundingBox.update(x, y, width, height);}
 
   double getX() const { return x; }
   double getY() const { return y; }

@@ -8,14 +8,23 @@
 class VisualizationWidget : public QWidget {
   Q_OBJECT
   std::shared_ptr<IMap> map;
+  std::shared_ptr<Obstacle> grabbedObstacle;
   std::shared_ptr<Obstacle> selectedObstacle;
+  std::shared_ptr<Robot> grabbedRobot;
   std::shared_ptr<Robot> selectedRobot;
+
 
  public:
   explicit VisualizationWidget(QWidget* parent = nullptr)
       : QWidget(parent), map(std::make_shared<Map>()) {}
 
   void setMap(std::shared_ptr<IMap> map) { this->map = map; }
+
+  signals:
+    void obstacleSelected(std::shared_ptr<Obstacle> obstacle);
+    void obstacleDeselected();
+    void robotSelected(std::shared_ptr<Robot> robot);
+    void robotDeselected();
 
  protected:
   void paintEvent(QPaintEvent* event) override;
