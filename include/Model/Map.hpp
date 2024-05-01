@@ -37,6 +37,6 @@ class Map : public IMap{
   void setHeight(int height) override { this->height = height; }
 
   void addObstacle(double x, double y, double width, double height) override;
-  void addRobot(double x, double y, double diameter, int angle, int speed, int type) override;
+  void addRobot(double x, double y, double diameter, double viewAngle, double rotateAngle, double collisionDistance, bool rotateClockwise, int speed, int type) override;
 };
 

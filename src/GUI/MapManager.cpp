@@ -42,7 +42,10 @@ void MapManager::saveMap(QString path, IMap& map) {
         r["x"] = robot->getX();
         r["y"] = robot->getY();
         r["diameter"] = robot->getDiameter();
-        r["angle"] = robot->getAngle();
+        r["view-angle"] = robot->getViewAngle();
+        r["rotate-angle"] = robot->getRotateAngle();
+        r["collision-distance"] = robot->getCollisionDistance();
+        r["rotate-clockwise"] = robot->getRotateClockwise();
         r["speed"] = robot->getSpeed();
         r["type"] = robot->getType();
         robots.append(r);

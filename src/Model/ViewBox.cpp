@@ -11,7 +11,7 @@ void ViewBox::rotate(double angle, double centerX, double centerY) {
     }
 }
 
-void ViewBox::update(double x, double y, double width, double height, double angle) {
-    setPoints({x + width, y}, {x + width * 2, y }, {x + width * 2 , y + height}, {x + width, y + height});
+void ViewBox::update(double x, double y, double width, double height, double distance, double angle) {
+    setPoints({x + width, y}, {x + width + distance, y }, {x + width + distance, y + height}, {x + width, y + height});
     rotate(angle, x + width / 2 , y + height / 2);
 }

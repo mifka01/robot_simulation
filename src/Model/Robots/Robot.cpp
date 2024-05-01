@@ -2,8 +2,8 @@
 #include <cmath>
 
 void Robot::move() {
-  double dx = speed * cos(angle);
-  double dy = speed * sin(angle);
+  double dx = speed * cos(viewAngle);
+  double dy = speed * sin(viewAngle);
   x += dx;
   y += dy;
 
@@ -11,12 +11,20 @@ void Robot::move() {
   viewBox.move(dx, dy);
 }
 
+void Robot::turn() {
+  if (rotateClockwise) {
+    turnRight();
+  } else {
+    turnLeft();
+  }
+}
+
 void Robot::turnLeft() {
-  angle -= rotateAngle;
+  viewAngle -= rotateAngle;
   viewBox.rotate(-rotateAngle, x + diameter / 2, y + diameter / 2);
 }
 
 void Robot::turnRight() {
-  angle += rotateAngle;
+  viewAngle += rotateAngle;
   viewBox.rotate(rotateAngle, x + diameter / 2, y + diameter / 2);
 }

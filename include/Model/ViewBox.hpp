@@ -9,5 +9,5 @@ public:
 
     void rotate(double angle, double centerX, double centerY);
 
-    void update(double x, double y, double width, double height, double angle);
+    void update(double x, double y, double width, double height, double distance, double angle);
 };

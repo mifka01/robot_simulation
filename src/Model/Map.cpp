@@ -30,7 +30,7 @@ void Map::setMap(
   this->robots.clear();
   this->obstacles.clear();
   for (const auto& robot : map.at("robots")) {
-    addRobot(robot.at("x"), robot.at("y"), robot.at("diameter"), robot.at("angle"), robot.at("speed"), robot.at("type"));
+    addRobot(robot.at("x"), robot.at("y"), robot.at("diameter"), robot.at("view-angle"), robot.at("rotate-angle"), robot.at("collision-distance"), robot.at("rotate-clockwise"), robot.at("speed"), robot.at("type"));
   }
   for (const auto& obstacle : map.at("obstacles")) {
     addObstacle(obstacle.at("x"), obstacle.at("y"), obstacle.at("width"), obstacle.at("height"));
@@ -45,17 +45,18 @@ void Map::addObstacle(double x, double y, double width, double height) {
   obstacles.push_back(std::make_shared<Obstacle>(obs));
 }
 
-void Map::addRobot(double x, double y, double diameter, int angle, int speed, int type) {
+void Map::addRobot(double x, double y, double diameter, double viewAngle, double rotateAngle, double collisionDistance, bool rotateClockwise, int speed, int type) {
   if (isOutOfBounds(x, y, diameter, diameter)) {
     adjustPosition(x, y, diameter, diameter);
   }
 
-  double angleRad = angle * M_PI / 180;
+  double viewAngleRad = viewAngle * M_PI / 180;
+  double rotateAngleRad = rotateAngle * M_PI / 180;
   if (type == 0) {
-    ManualRobot manualRobot(x, y, diameter, angleRad, speed);
+    ManualRobot manualRobot(x, y, diameter, viewAngleRad, rotateAngleRad, collisionDistance, rotateClockwise, speed);
     robots.push_back(std::make_shared<ManualRobot>(manualRobot));
   } else {
-    AutonomousRobot autoRobot(x, y, diameter, angleRad, speed);
+    AutonomousRobot autoRobot(x, y, diameter, viewAngleRad, rotateAngleRad, collisionDistance, rotateClockwise, speed);
     robots.push_back(std::make_shared<AutonomousRobot>(autoRobot));
   }
 }
