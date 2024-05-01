@@ -1,11 +1,8 @@
-#include <QHBoxLayout>
-#include <QLineEdit>
 #include <QVBoxLayout>
-#include <QSpinBox>
-#include "GUI/Button.hpp"
-#include "GUI/Label.hpp"
-
 #include "GUI/Widget/ControlsWidget.hpp"
+#include "GUI/Widget/SimulationControlsWidget.hpp"
+#include "GUI/Widget/SpawnControlsWidget.hpp"
+#include "Settings.hpp"
 #include "Model/Map.hpp"
 
 ControlsWidget::ControlsWidget(QWidget* parent) : QWidget(parent) {
@@ -14,106 +11,27 @@ map = std::make_shared<Map>();
 
 QVBoxLayout* layout = new QVBoxLayout(this);
 
-QVBoxLayout* mapControls = new QVBoxLayout(layout->widget());
-Label* mapLabel = new Label("Map Controls", this);
-mapControls->addWidget(mapLabel);
+SimulationControlsWidget* simulationControls = new SimulationControlsWidget(this);
+layout->addWidget(simulationControls);
 
-QHBoxLayout* mapButtons = new QHBoxLayout(this);
-Button* loadMap = new Button("load", this);
-mapButtons->addWidget(loadMap);
-connect(loadMap, &Button::clicked, this, &ControlsWidget::onLoadMapClicked);
+connect(simulationControls, &SimulationControlsWidget::loadMapClicked, this, &ControlsWidget::onLoadMapClicked);
+connect(simulationControls, &SimulationControlsWidget::saveMapClicked, this, &ControlsWidget::onSaveMapClicked);
+connect(simulationControls, &SimulationControlsWidget::startClicked, this, &ControlsWidget::onStartClicked);
+connect(simulationControls, &SimulationControlsWidget::stopClicked, this, &ControlsWidget::onStopClicked);
 
-Button* saveMap = new Button("save", this);
-mapButtons->addWidget(saveMap);
-connect(saveMap, &Button::clicked, this, &ControlsWidget::onSaveMapClicked);
+SpawnControlsWidget* spawnControls = new SpawnControlsWidget(this);
+layout->addWidget(spawnControls);
 
-mapControls->addLayout(mapButtons);
-layout->addLayout(mapControls);
-
-Label* simulationLabel = new Label("Simulation Controls", this);
-layout->addWidget(simulationLabel);
-
-QHBoxLayout* simulationButtons = new QHBoxLayout(this);
-Button* start = new Button("start", this);
-simulationButtons->addWidget(start);
-connect(start, &Button::clicked, this, &ControlsWidget::onStartClicked);
-
-Button* stop = new Button("stop", this);
-simulationButtons->addWidget(stop);
-connect(stop, &Button::clicked, this, &ControlsWidget::onStopClicked);
-layout->addLayout(simulationButtons);
-
-Label* spawnLabel = new Label("Spawn Controls", this);
-layout->addWidget(spawnLabel);
-
-QVBoxLayout* spawnButtons = new QVBoxLayout(this);
-
-QHBoxLayout* obstacleButtons = new QHBoxLayout(this);
-Button* addObstacle = new Button("obstacle", this);
-obstacleButtons->addWidget(addObstacle);
-QSpinBox* obstacleWidth = new QSpinBox(this);
-QSpinBox* obstacleHeight= new QSpinBox(this);
-
-obstacleWidth->setValue(40);
-obstacleHeight->setValue(40);
-obstacleWidth->setRange(10, 1000);
-obstacleHeight->setRange(10, 1000);
-
-obstacleButtons->addWidget(obstacleWidth);
-obstacleButtons->addWidget(obstacleHeight);
-
-spawnButtons->addLayout(obstacleButtons);
-
-QHBoxLayout* robotButtons = new QHBoxLayout(this);
-
-Button* addManualRobot = new Button("Manual Robot", this);
-robotButtons->addWidget(addManualRobot);
-Button* addAutoRobot = new Button("Autonomous Robot", this);
-robotButtons->addWidget(addAutoRobot);
-QSpinBox* diameter = new QSpinBox(this);
-robotButtons->addWidget(diameter);
-
-
-diameter->setValue(20);
-diameter->setRange(5, 500);
-
-
-robotButtons->addWidget(diameter);
-
-QSpinBox* speed = new QSpinBox(this);
-
-speed->setValue(1);
-speed->setRange(1, 100);
-
-robotButtons->addWidget(speed);
-
-
-QSpinBox* angle = new QSpinBox(this);
-
-angle->setValue(1);
-angle->setRange(1, 359);
-
-robotButtons->addWidget(angle);
-
-
-spawnButtons->addLayout(robotButtons);
-
-
-
-connect(addObstacle, &Button::clicked, this, [this, obstacleWidth, obstacleHeight]() {
-    this->onAddObstacle(obstacleWidth->value(), obstacleHeight->value());
+connect(spawnControls, &SpawnControlsWidget::addObstacleClicked, this, &ControlsWidget::onAddObstacle);
+connect(spawnControls, &SpawnControlsWidget::addManualRobotClicked, this, [this]() {
+    this->onAddRobot(0);
+});
+connect(spawnControls, &SpawnControlsWidget::addAutoRobotClicked, this, [this]() {
+    this->onAddRobot(1);
 });
 
-connect(addManualRobot, &Button::clicked, this, [this, diameter, angle, speed]() {
-    this->onAddRobot(diameter->value(), angle->value(), speed->value(), 0);
-});
-
-connect(addAutoRobot, &Button::clicked, this, [this, diameter, angle, speed]() {
-    this->onAddRobot(diameter->value(), angle->value(), speed->value(), 1);
-});
-
-
-layout->addLayout(spawnButtons);
+layout->addStretch();
+setLayout(layout);
 
 }
 
@@ -133,15 +51,15 @@ void ControlsWidget::onStopClicked() {
   emit stopClicked();
 }
 
-void ControlsWidget::onAddObstacle(int width, int height) {
+void ControlsWidget::onAddObstacle() {
   emit stopClicked();
-  map->addObstacle(map->getWidth() / 2, map->getHeight() / 2, width, height);
+  map->addObstacle(map->getWidth() / 2, map->getHeight() / 2, Settings::OBSTACLE_BASE_WIDTH, Settings::OBSTACLE_BASE_HEIGHT);
   emit updateMap();
 }
 
-void ControlsWidget::onAddRobot(double diameter, int angle, int speed, int type) {
+void ControlsWidget::onAddRobot(int type) {
   emit stopClicked();
-  map->addRobot(map->getWidth() / 2, map->getHeight() / 2, diameter, angle, speed, type);
+  map->addRobot(map->getWidth() / 2, map->getHeight() / 2, Settings::ROBOT_BASE_DIAMETER, Settings::ROBOT_BASE_VIEW_ANGLE, Settings::ROBOT_BASE_ROTATE_ANGLE, Settings::ROBOT_BASE_COLISION_DISTANCE, Settings::ROBOT_BASE_ROTATE_CLOCKWISE, Settings::ROBOT_BASE_SPEED, type);
   emit updateMap();
 }
 

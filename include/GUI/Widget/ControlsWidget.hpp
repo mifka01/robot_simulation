@@ -28,6 +28,6 @@ class ControlsWidget : public QWidget {
   void onSaveMapClicked();
   void onStartClicked();
   void onStopClicked();
-  void onAddObstacle(int width, int height);
-  void onAddRobot(double diameter, int angle, int speed, int type);
+  void onAddObstacle();
+  void onAddRobot(int type);
 };
