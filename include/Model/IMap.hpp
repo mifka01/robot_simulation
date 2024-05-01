@@ -26,6 +26,6 @@ public:
     virtual void setHeight(int height) = 0;
 
     virtual void addObstacle(double x, double y, double width, double height) = 0;
-    virtual void addRobot(double x, double y, double diameter, double viewAngle, double rotateAngle, double collisionDistance, bool rotateClockwise, int speed, int type) = 0;
+    virtual void addRobot(double x, double y, double diameter, double viewAngle, double rotateAngle, double viewDistance, bool rotateClockwise, int speed, int type) = 0;
 };
 
