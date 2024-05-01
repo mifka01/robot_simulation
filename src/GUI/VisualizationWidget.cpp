@@ -1,24 +1,11 @@
 #include "GUI/Widget/VisualizationWidget.hpp"
-#include "Settings.hpp"
 #include <QPainter>
 #include <cmath>
 #include <QMouseEvent>
 
-void VisualizationWidget::drawBorder(QPainter &painter) {
-  painter.setBrush(Qt::white);
-  painter.drawRect(0, 0, width() - 1, Settings::BORDER_SIZE);
-  painter.drawRect(0, 0 + Settings::BORDER_SIZE, Settings::BORDER_SIZE,
-                   height() - 1);
-  painter.drawRect(width() - Settings::BORDER_SIZE, 0 + Settings::BORDER_SIZE,
-                   Settings::BORDER_SIZE, height() - 1);
-  painter.drawRect(0 + Settings::BORDER_SIZE, height() - Settings::BORDER_SIZE,
-                   width() - 1, Settings::BORDER_SIZE);
-}
-
 void VisualizationWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing, true);
-  drawBorder(painter);
 
   // Draw robots as circles
   for (const auto &robot : map->getRobots()) {
@@ -33,9 +20,9 @@ void VisualizationWidget::paintEvent(QPaintEvent *event) {
     painter.drawLine(robot->getX() + robot->getDiameter() / 2,
                      robot->getY() + robot->getDiameter() / 2,
                      robot->getX() + robot->getDiameter() / 2 +
-                         robot->getDiameter() / 2 * cos(robot->getAngle()),
+                         robot->getDiameter() / 2 * cos(robot->getViewAngleRad()),
                      robot->getY() + robot->getDiameter() / 2 +
-                         robot->getDiameter() / 2 * sin(robot->getAngle()));
+                         robot->getDiameter() / 2 * sin(robot->getViewAngleRad()));
 
     auto box = robot->getViewBox();
     painter.setPen(Qt::NoPen);

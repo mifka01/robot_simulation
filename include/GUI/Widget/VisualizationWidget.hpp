@@ -22,8 +22,6 @@ class VisualizationWidget : public QWidget {
 
   void resizeEvent(QResizeEvent* event) override;
 
-  void drawBorder(QPainter& painter);
-
   void mousePressEvent(QMouseEvent* event) override;
   void mouseMoveEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
