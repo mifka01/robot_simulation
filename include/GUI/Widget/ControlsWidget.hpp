@@ -16,6 +16,7 @@ class ControlsWidget : public QWidget {
 
  signals:
   void loadMapClicked();
+  void saveMapClicked();
   void startClicked();
   void stopClicked();
   void addObstacleClicked();
@@ -24,6 +25,7 @@ class ControlsWidget : public QWidget {
 
  private:
   void onLoadMapClicked();
+  void onSaveMapClicked();
   void onStartClicked();
   void onStopClicked();
   void onAddObstacle(int width, int height);

@@ -17,6 +17,7 @@ class Window : public QMainWindow {
 
  signals:
   void loadMap();
+  void saveMap();
   void start();
   void stop();
   void tick();
@@ -24,6 +25,7 @@ class Window : public QMainWindow {
 
  private slots:
   void onLoadMap();
+  void onSaveMap();
   void onStart();
   void onStop();
   void onTick();

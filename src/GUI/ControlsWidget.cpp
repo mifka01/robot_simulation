@@ -22,6 +22,11 @@ QHBoxLayout* mapButtons = new QHBoxLayout(this);
 Button* loadMap = new Button("load", this);
 mapButtons->addWidget(loadMap);
 connect(loadMap, &Button::clicked, this, &ControlsWidget::onLoadMapClicked);
+
+Button* saveMap = new Button("save", this);
+mapButtons->addWidget(saveMap);
+connect(saveMap, &Button::clicked, this, &ControlsWidget::onSaveMapClicked);
+
 mapControls->addLayout(mapButtons);
 layout->addLayout(mapControls);
 
@@ -114,6 +119,10 @@ layout->addLayout(spawnButtons);
 
 void ControlsWidget::onLoadMapClicked() {
   emit loadMapClicked();
+}
+
+void ControlsWidget::onSaveMapClicked() {
+  emit saveMapClicked();
 }
 
 void ControlsWidget::onStartClicked() {

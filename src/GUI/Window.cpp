@@ -2,7 +2,7 @@
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QString>
-#include "GUI/MapLoader.hpp"
+#include "GUI/MapManager.hpp"
 #include "Settings.hpp"
 
 Window::Window(QWidget* parent) : QMainWindow(parent) {
@@ -26,13 +26,14 @@ Window::Window(QWidget* parent) : QMainWindow(parent) {
   updateTimer.setInterval(1000 / Settings::FPS);
 
   // Create empty map
-  simulation.setMap(MapLoader::getEmptyMap(), visualizationWidget.width(),
+  simulation.setMap(MapManager::getEmptyMap(), visualizationWidget.width(),
                     visualizationWidget.height());
   controls.setMap(simulation.getMap());
   visualizationWidget.setMap(simulation.getMap());
 
   connect(&updateTimer, &QTimer::timeout, this, &Window::onTick);
   connect(&controls, &ControlsWidget::loadMapClicked, this, &Window::onLoadMap);
+  connect(&controls, &ControlsWidget::saveMapClicked, this, &Window::onSaveMap);
   connect(&controls, &ControlsWidget::startClicked, this, &Window::onStart);
   connect(&controls, &ControlsWidget::stopClicked, this, &Window::onStop);
   connect(&controls, &ControlsWidget::updateMap, this, &Window::onVisualize);
@@ -45,12 +46,22 @@ void Window::onLoadMap() {
   if (filePath.isEmpty()) {
     return;
   }
-  auto map = MapLoader::loadMap(filePath);
+  auto map = MapManager::loadMap(filePath);
   simulation.setMap(map, visualizationWidget.width(),
                     visualizationWidget.height());
   controls.setMap(simulation.getMap());
   visualizationWidget.setMap(simulation.getMap());
   emit onVisualize();
+}
+
+void Window::onSaveMap() {
+  updateTimer.stop();
+  QString filePath = QFileDialog::getSaveFileName(this, tr("Save Map"), "",
+                                                  tr("JSON Files (*.json)"));
+  if (filePath.isEmpty()) {
+    return;
+  }
+  MapManager::saveMap(filePath, *simulation.getMap());
 }
 
 void Window::onStart() {
