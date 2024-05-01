@@ -9,6 +9,13 @@ void VisualizationWidget::paintEvent(QPaintEvent *event) {
 
   // Draw robots as circles
   for (const auto &robot : map->getRobots()) {
+
+    if(robot == selectedRobot){
+        painter.setBrush(Qt::red);
+        painter.drawEllipse(robot->getX() - 5, robot->getY() - 5, robot->getDiameter() + 10, robot->getDiameter() + 10);
+    }
+
+
     if (robot->getType() == 0) {
       painter.setBrush(Qt::green);
     } else {
@@ -37,6 +44,10 @@ void VisualizationWidget::paintEvent(QPaintEvent *event) {
 
   // Draw obstacles as rectangles
   for (const auto &obstacle : map->getObstacles()) {
+    if(obstacle == selectedObstacle){
+        painter.setBrush(Qt::blue);
+        painter.drawRect(obstacle->getX() - 5, obstacle->getY() - 5, obstacle->getWidth() + 10, obstacle->getHeight() + 10);
+    }
     painter.setBrush(Qt::red);
     painter.drawRect(obstacle->getX(), obstacle->getY(), obstacle->getWidth(),
                      obstacle->getHeight());
@@ -53,41 +64,64 @@ void VisualizationWidget::mousePressEvent(QMouseEvent* event) {
     double x = event->pos().x();
     double y = event->pos().y();
 
+    emit obstacleDeselected();
+    if (selectedObstacle) {
+        selectedObstacle = nullptr;
+        update();
+    }
+
+
+    emit robotDeselected();
+    if (selectedRobot) {
+        selectedRobot = nullptr;
+        update();
+    }
+
      for (auto& obstacle : map->getObstacles()) {
         if (obstacle->getBoundingBox().contains({x, y})) {
+            grabbedObstacle = obstacle;
             selectedObstacle = obstacle;
+            update();
+            emit obstacleSelected(obstacle);
             return;
         }
     }
     for (auto& robot : map->getRobots()) {
         if (robot->getBoundingBox().contains({x, y})) {
+            grabbedRobot = robot;
             selectedRobot = robot;
+            update();
+            emit robotSelected(robot);
             return;
         }
     }
 
+
 }
 
 void VisualizationWidget::mouseMoveEvent(QMouseEvent* event) {
-    if (selectedObstacle) {
-        selectedObstacle->setX(event->pos().x() - selectedObstacle->getWidth() / 2);
-        selectedObstacle->setY(event->pos().y() - selectedObstacle->getHeight() / 2);
+    if (grabbedObstacle) {
+        grabbedObstacle->setX(event->pos().x() - grabbedObstacle->getWidth() / 2);
+        grabbedObstacle->setY(event->pos().y() - grabbedObstacle->getHeight() / 2);
+        selectedObstacle = grabbedObstacle;
+        emit obstacleSelected(grabbedObstacle);
         update();
     }
 
-    if (selectedRobot) {
-        selectedRobot->setX(event->pos().x() - selectedRobot->getDiameter() / 2);
-        selectedRobot->setY(event->pos().y() - selectedRobot->getDiameter() / 2);
+    if (grabbedRobot) {
+        grabbedRobot->setX(event->pos().x() - grabbedRobot->getDiameter() / 2);
+        grabbedRobot->setY(event->pos().y() - grabbedRobot->getDiameter() / 2);
+        selectedRobot = grabbedRobot;
+        emit robotSelected(grabbedRobot);
         update();
     }
 }
 
 void VisualizationWidget::mouseReleaseEvent(QMouseEvent* event) {
-    if(selectedObstacle){
-        selectedObstacle = nullptr;
+    if(grabbedObstacle){
+        grabbedObstacle = nullptr;
     }
-    if(selectedRobot){
-        selectedRobot = nullptr;
+    if(grabbedRobot){
+        grabbedRobot = nullptr;
     }
 }
-

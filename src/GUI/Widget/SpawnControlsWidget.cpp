@@ -1,6 +1,5 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QFrame>
 #include <QWidget>
 #include "GUI/Widget/SpawnControlsWidget.hpp"
 #include "GUI/Button.hpp"

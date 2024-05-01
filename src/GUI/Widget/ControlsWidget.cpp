@@ -4,6 +4,7 @@
 #include "GUI/Widget/SpawnControlsWidget.hpp"
 #include "Settings.hpp"
 #include "Model/Map.hpp"
+#include "GUI/Button.hpp"
 
 ControlsWidget::ControlsWidget(QWidget* parent) : QWidget(parent) {
   // load empty map
@@ -30,9 +31,38 @@ connect(spawnControls, &SpawnControlsWidget::addAutoRobotClicked, this, [this]()
     this->onAddRobot(1);
 });
 
+obstacleParameters = new ObstacleParametersWidget(this);
+layout->addWidget(obstacleParameters);
+obstacleParameters->hide();
+
+connect(obstacleParameters, &ObstacleParametersWidget::updateMap, this, &ControlsWidget::updateMap);
+
+robotParameters = new RobotParametersWidget(this);
+layout->addWidget(robotParameters);
+robotParameters->hide();
+
+connect(robotParameters, &RobotParametersWidget::updateMap, this, &ControlsWidget::updateMap);
+
 layout->addStretch();
 setLayout(layout);
+}
 
+void ControlsWidget::onObstacleSelected(std::shared_ptr<Obstacle> obstacle) {
+    obstacleParameters->setObstacle(obstacle);
+    obstacleParameters->show();
+}
+
+void ControlsWidget::onObstacleDeselected() {
+    this->obstacleParameters->hide();
+}
+
+void ControlsWidget::onRobotSelected(std::shared_ptr<Robot> robot) {
+    robotParameters->setRobot(robot);
+    robotParameters->show();
+}
+
+void ControlsWidget::onRobotDeselected() {
+    robotParameters->hide();
 }
 
 void ControlsWidget::onLoadMapClicked() {
@@ -62,4 +92,3 @@ void ControlsWidget::onAddRobot(int type) {
   map->addRobot(map->getWidth() / 2, map->getHeight() / 2, Settings::ROBOT_BASE_DIAMETER, Settings::ROBOT_BASE_VIEW_ANGLE, Settings::ROBOT_BASE_ROTATE_ANGLE, Settings::ROBOT_BASE_COLISION_DISTANCE, Settings::ROBOT_BASE_ROTATE_CLOCKWISE, Settings::ROBOT_BASE_SPEED, type);
   emit updateMap();
 }
-
