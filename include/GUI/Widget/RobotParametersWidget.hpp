@@ -5,6 +5,7 @@
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QCheckBox>
+#include <QHBoxLayout>
 #include "Model/Robot/Robot.hpp"
 
 class RobotParametersWidget: public QWidget {
@@ -26,6 +27,12 @@ class RobotParametersWidget: public QWidget {
     RobotParametersWidget(QWidget* parent = nullptr);
 
     void setRobot(std::shared_ptr<Robot> obstacle);
+    QDoubleSpinBox *createParameterControl(const QString &labelText,
+                                       double minRange, double maxRange,
+                                       QHBoxLayout *parentLayout);
+
+    template <typename T, typename Getter, typename Setter>
+    void updateRobotParameter(Getter getter, Setter setter, T newValue);
 
     signals:
         void updateMap();

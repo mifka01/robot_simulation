@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QObject>
 #include <QDoubleSpinBox>
+#include <QHBoxLayout>
 #include "Model/Obstacle.hpp"
 
 class ObstacleParametersWidget: public QWidget {
@@ -20,6 +21,10 @@ class ObstacleParametersWidget: public QWidget {
     ObstacleParametersWidget(QWidget* parent = nullptr);
 
     void setObstacle(std::shared_ptr<Obstacle> obstacle);
+
+    QDoubleSpinBox *createParameterControl(const QString &labelText,
+                                       double minRange, double maxRange,
+                                       QHBoxLayout *parentLayout);
 
     signals:
         void updateMap();

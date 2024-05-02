@@ -15,126 +15,60 @@ RobotParametersWidget::RobotParametersWidget(QWidget *parent)
   frame->setObjectName("frame");
   QVBoxLayout *frameLayout = new QVBoxLayout(frame);
 
-  Label *label = new Label("Robot parameters", frame);
+  Label *label = new Label("Robot parameters");
 
-  QVBoxLayout *positionLayout = new QVBoxLayout(frame);
+  QHBoxLayout *positionLayout = new QHBoxLayout();
 
-  QHBoxLayout *positionLabels = new QHBoxLayout(frame);
-
-  Label *positionXLabel = new Label("Position X:", frame);
-  positionXLabel->setStyleSheet("font-size: 12px;");
-
-  Label *positionYLabel = new Label("Position Y:", frame);
-  positionYLabel->setStyleSheet("font-size: 12px;");
-
-  positionLabels->addWidget(positionXLabel);
-  positionLabels->addWidget(positionYLabel);
-  positionLayout->addLayout(positionLabels);
-
-  QHBoxLayout *posSpinboxes = new QHBoxLayout(frame);
-
-  x = new QDoubleSpinBox(frame);
-  x->setRange(-2000, 2000);
-  x->setSingleStep(1);
-  posSpinboxes->addWidget(x);
-
-  y = new QDoubleSpinBox(frame);
-  y->setRange(-2000, 2000);
-  y->setSingleStep(1);
-  posSpinboxes->addWidget(y);
-
-  positionLayout->addLayout(posSpinboxes);
+  x = createParameterControl("Position X:", -2000, 2000, positionLayout);
+  y = createParameterControl("Position Y:", -2000, 2000, positionLayout);
 
   connect(x, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
           &RobotParametersWidget::onXChanged);
   connect(y, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
           &RobotParametersWidget::onYChanged);
 
-  QVBoxLayout *dimensionLayout = new QVBoxLayout(frame);
-  Label *diameterLabel = new Label("Diameter:", frame);
-  diameterLabel->setStyleSheet("font-size: 12px;");
+  QHBoxLayout *dimensionLayout = new QHBoxLayout();
 
-  Label *viewDistanceLabel = new Label("View distance:", frame);
-  viewDistanceLabel->setStyleSheet("font-size: 12px;");
-
-  QHBoxLayout *dimensionLabels = new QHBoxLayout(frame);
-  dimensionLabels->addWidget(diameterLabel);
-  dimensionLabels->addWidget(viewDistanceLabel);
-
-  dimensionLayout->addLayout(dimensionLabels);
-
-  QHBoxLayout *dimensionSpinboxes = new QHBoxLayout(frame);
-
-  diameter = new QDoubleSpinBox(frame);
-  diameter->setRange(1, 200);
-  diameter->setSingleStep(1);
-  dimensionSpinboxes->addWidget(diameter);
-
-  viewDistance = new QDoubleSpinBox(frame);
-  viewDistance->setRange(1, 2000);
-  viewDistance->setSingleStep(1);
-  dimensionSpinboxes->addWidget(viewDistance);
-
-  dimensionLayout->addLayout(dimensionSpinboxes);
+  diameter = createParameterControl("Diameter:", 1, 100, dimensionLayout);
+  viewDistance =
+      createParameterControl("View distance:", 1, 100, dimensionLayout);
 
   connect(diameter, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
           &RobotParametersWidget::onDiameterChanged);
   connect(viewDistance, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
           this, &RobotParametersWidget::onViewDistanceChanged);
 
-  QVBoxLayout *angleLayout = new QVBoxLayout(frame);
-  Label *viewAngleLabel = new Label("View angle:", frame);
-  viewAngleLabel->setStyleSheet("font-size: 12px;");
+  QHBoxLayout *angleLayout = new QHBoxLayout();
 
-  Label *rotateAngleLabel = new Label("Rotate angle:", frame);
-  rotateAngleLabel->setStyleSheet("font-size: 12px;");
-
-  QHBoxLayout *angleLabels = new QHBoxLayout(frame);
-  angleLabels->addWidget(viewAngleLabel);
-  angleLabels->addWidget(rotateAngleLabel);
-
-  angleLayout->addLayout(angleLabels);
-
-  QHBoxLayout *angleSpinboxes = new QHBoxLayout(frame);
-
-  viewAngle = new QDoubleSpinBox(frame);
-  viewAngle->setRange(-360, 360);
-  viewAngle->setSingleStep(1);
-  angleSpinboxes->addWidget(viewAngle);
-
-  rotateAngle = new QDoubleSpinBox(frame);
-  rotateAngle->setRange(-359, 359);
-  rotateAngle->setSingleStep(1);
-  angleSpinboxes->addWidget(rotateAngle);
-
-  angleLayout->addLayout(angleSpinboxes);
+  viewAngle = createParameterControl("View angle:", -360, 360, angleLayout);
+  rotateAngle = createParameterControl("Rotate angle:", -360, 360, angleLayout);
 
   connect(viewAngle, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
           &RobotParametersWidget::onViewAngleChanged);
   connect(rotateAngle, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
           this, &RobotParametersWidget::onRotateAngleChanged);
 
-  QVBoxLayout *miscLayout = new QVBoxLayout(frame);
-  Label *speedLabel = new Label("Speed:", frame);
+  QVBoxLayout *miscLayout = new QVBoxLayout();
+  Label *speedLabel = new Label("Speed:");
   speedLabel->setStyleSheet("font-size: 12px;");
 
-  Label *rotateClockwiseLabel = new Label("Rotate clockwise:", frame);
+  Label *rotateClockwiseLabel = new Label("Rotate clockwise:");
   rotateClockwiseLabel->setStyleSheet("font-size: 12px;");
 
-  QHBoxLayout *miscLabels = new QHBoxLayout(frame);
+  QHBoxLayout *miscLabels = new QHBoxLayout();
   miscLabels->addWidget(speedLabel);
   miscLabels->addWidget(rotateClockwiseLabel);
 
   miscLayout->addLayout(miscLabels);
 
-  QHBoxLayout *miscWidgets = new QHBoxLayout(frame);
+  QHBoxLayout *miscWidgets = new QHBoxLayout();
 
-  speed = new QSpinBox(frame);
+  speed = new QSpinBox();
   speed->setRange(1, 100);
   speed->setSingleStep(1);
   miscWidgets->addWidget(speed);
 
-  rotateClockwise = new QCheckBox(frame);
+  rotateClockwise = new QCheckBox();
   miscWidgets->addWidget(rotateClockwise);
 
   miscLayout->addLayout(miscWidgets);
@@ -155,6 +89,26 @@ RobotParametersWidget::RobotParametersWidget(QWidget *parent)
   setLayout(layout);
 }
 
+QDoubleSpinBox *
+RobotParametersWidget::createParameterControl(const QString &labelText,
+                                              double minRange, double maxRange,
+                                              QHBoxLayout *parentLayout) {
+  QVBoxLayout *layout = new QVBoxLayout();
+
+  QLabel *label = new QLabel(labelText);
+  label->setStyleSheet("font-size: 12px;");
+  layout->addWidget(label);
+
+  QDoubleSpinBox *spinBox = new QDoubleSpinBox();
+  spinBox->setRange(minRange, maxRange);
+  spinBox->setSingleStep(1);
+  layout->addWidget(spinBox);
+
+  parentLayout->addLayout(layout);
+
+  return spinBox;
+}
+
 void RobotParametersWidget::setRobot(std::shared_ptr<Robot> robot) {
   this->robot = robot;
   x->setValue(robot->getX());
@@ -167,58 +121,44 @@ void RobotParametersWidget::setRobot(std::shared_ptr<Robot> robot) {
   rotateClockwise->setChecked(robot->getRotateClockwise());
 }
 
-void RobotParametersWidget::onXChanged(double value) {
-  if (robot && robot->getX() != value) {
-    robot->setX(value);
+template <typename T, typename Getter, typename Setter>
+void RobotParametersWidget::updateRobotParameter(Getter getter, Setter setter,
+                                                 T newValue) {
+  if (robot && ((*robot).*getter)() != newValue) {
+    ((*robot).*setter)(newValue);
     emit updateMap();
   }
+}
+
+void RobotParametersWidget::onXChanged(double value) {
+  updateRobotParameter(&Robot::getX, &Robot::setX, value);
 }
 
 void RobotParametersWidget::onYChanged(double value) {
-  if (robot && robot->getY() != value) {
-    robot->setY(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getY, &Robot::setY, value);
 }
 
 void RobotParametersWidget::onDiameterChanged(double value) {
-  if (robot && robot->getDiameter() != value) {
-    robot->setDiameter(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getDiameter, &Robot::setDiameter, value);
 }
 
 void RobotParametersWidget::onViewDistanceChanged(double value) {
-  if (robot && robot->getViewDistance() != value) {
-    robot->setViewDistance(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getViewDistance, &Robot::setViewDistance, value);
 }
 
 void RobotParametersWidget::onViewAngleChanged(double value) {
-  if (robot && robot->getViewAngle() != value) {
-    robot->setViewAngle(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getViewAngle, &Robot::setViewAngle, value);
 }
 
 void RobotParametersWidget::onRotateAngleChanged(double value) {
-  if (robot && robot->getRotateAngle() != value) {
-    robot->setRotateAngle(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getRotateAngle, &Robot::setRotateAngle, value);
 }
 
 void RobotParametersWidget::onSpeedChanged(int value) {
-  if (robot && robot->getSpeed() != value) {
-    robot->setSpeed(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getSpeed, &Robot::setSpeed, value);
 }
 
 void RobotParametersWidget::onRotateClockwiseChanged(bool value) {
-  if (robot && robot->getRotateClockwise() != value) {
-    robot->setRotateClockwise(value);
-    emit updateMap();
-  }
+  updateRobotParameter(&Robot::getRotateClockwise, &Robot::setRotateClockwise,
+                       value);
 }

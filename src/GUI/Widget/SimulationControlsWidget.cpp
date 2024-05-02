@@ -10,30 +10,32 @@
 
 SimulationControlsWidget::SimulationControlsWidget(QWidget* parent) : QWidget(parent) {
     setObjectName("SimulationControlsWidget");
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout* layout = new QVBoxLayout();
 
     Frame* frame = new Frame(this);
     frame->setObjectName("frame");
-    QVBoxLayout* frameLayout = new QVBoxLayout(frame);
+    QVBoxLayout* frameLayout = new QVBoxLayout();
 
 
-    Label* label = new Label("Simulation", frame);
+    Label* label = new Label("Simulation");
 
-    QHBoxLayout* buttons = new QHBoxLayout(frame);
-    Button* start = new Button("Start", frame);
+    QHBoxLayout* buttons = new QHBoxLayout();
+    Button* start = new Button("Start");
     buttons->addWidget(start);
 
-    Button* stop = new Button("Stop", frame);
+    Button* stop = new Button("Stop");
     buttons->addWidget(stop);
 
-    Button* load = new Button("Load", frame);
+    Button* load = new Button("Load");
     buttons->addWidget(load);
 
-    Button* save = new Button("Save", frame);
+    Button* save = new Button("Save");
     buttons->addWidget(save);
 
     frameLayout->addWidget(label, 0, Qt::AlignCenter);
     frameLayout->addLayout(buttons);
+
+    frame->setLayout(frameLayout);
 
     layout->addWidget(frame);
 

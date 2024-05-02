@@ -11,25 +11,22 @@ SpawnControlsWidget::SpawnControlsWidget(QWidget* parent) : QWidget(parent) {
     setObjectName("SpawnControlsWidget");
     QVBoxLayout* layout = new QVBoxLayout(this);
 
-    Frame * frame = new Frame(this);
+    QFrame * frame = new Frame(this);
     frame->setObjectName("frame");
-    QVBoxLayout* frameLayout = new QVBoxLayout(frame);
+    QVBoxLayout* frameLayout = new QVBoxLayout();
 
 
-    Label* label = new Label("Spawn", frame);
-
-    QVBoxLayout* buttons = new QVBoxLayout(frame);
-    Button* obstacle = new Button("Obstacle", frame);
-    buttons->addWidget(obstacle);
-
-    Button* autoRobot = new Button("Autonomous Robot", frame);
-    buttons->addWidget(autoRobot);
-
-    Button* manualRobot = new Button("Manual Robot", frame);
-    buttons->addWidget(manualRobot);
+    Label* label = new Label("Spawn");
+    Button* obstacle = new Button("Obstacle");
+    Button* autoRobot = new Button("Autonomous Robot");
+    Button* manualRobot = new Button("Manual Robot");
 
     frameLayout->addWidget(label, 0, Qt::AlignCenter);
-    frameLayout->addLayout(buttons);
+    frameLayout->addWidget(obstacle);
+    frameLayout->addWidget(autoRobot);
+    frameLayout->addWidget(manualRobot);
+
+    frame->setLayout(frameLayout);
 
     layout->addWidget(frame);
 
@@ -41,7 +38,7 @@ SpawnControlsWidget::SpawnControlsWidget(QWidget* parent) : QWidget(parent) {
 
     setStyleSheet("QWidget#SpawnControlsWidget {"
                   "background-color: transparent;"
-                  "}");
+    "}");
 
 }
 
