@@ -1,4 +1,5 @@
 #include "GUI/Widget/RobotParametersWidget.hpp"
+#include "GUI/Button.hpp"
 #include "GUI/Frame.hpp"
 #include "GUI/Label.hpp"
 #include <QDoubleSpinBox>
@@ -78,11 +79,16 @@ RobotParametersWidget::RobotParametersWidget(QWidget *parent)
   connect(rotateClockwise, &QCheckBox::stateChanged, this,
           &RobotParametersWidget::onRotateClockwiseChanged);
 
+  Button *remove = new Button("Remove");
+
+  connect(remove, &Button::clicked, [this]() { emit removeRobot(robot); });
+
   frameLayout->addWidget(label, 0, Qt::AlignCenter);
   frameLayout->addLayout(positionLayout);
   frameLayout->addLayout(dimensionLayout);
   frameLayout->addLayout(angleLayout);
   frameLayout->addLayout(miscLayout);
+  frameLayout->addWidget(remove);
 
   layout->addWidget(frame);
 

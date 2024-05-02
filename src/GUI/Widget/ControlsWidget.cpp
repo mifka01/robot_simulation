@@ -1,10 +1,9 @@
-#include <QVBoxLayout>
 #include "GUI/Widget/ControlsWidget.hpp"
 #include "GUI/Widget/SimulationControlsWidget.hpp"
 #include "GUI/Widget/SpawnControlsWidget.hpp"
-#include "Settings.hpp"
 #include "Model/Map.hpp"
-#include "GUI/Button.hpp"
+#include "Settings.hpp"
+#include <QVBoxLayout>
 
 ControlsWidget::ControlsWidget(QWidget* parent) : QWidget(parent) {
   // load empty map
@@ -36,12 +35,14 @@ layout->addWidget(obstacleParameters);
 obstacleParameters->hide();
 
 connect(obstacleParameters, &ObstacleParametersWidget::updateMap, this, &ControlsWidget::updateMap);
+connect(obstacleParameters, &ObstacleParametersWidget::removeObstacle, this, &ControlsWidget::onRemoveObstacle);
 
 robotParameters = new RobotParametersWidget(this);
 layout->addWidget(robotParameters);
 robotParameters->hide();
 
 connect(robotParameters, &RobotParametersWidget::updateMap, this, &ControlsWidget::updateMap);
+connect(robotParameters, &RobotParametersWidget::removeRobot, this, &ControlsWidget::onRemoveRobot);
 
 layout->addStretch();
 setLayout(layout);
@@ -90,5 +91,17 @@ void ControlsWidget::onAddObstacle() {
 void ControlsWidget::onAddRobot(int type) {
   emit stopClicked();
   map->addRobot(map->getWidth() / 2, map->getHeight() / 2, Settings::ROBOT_BASE_DIAMETER, Settings::ROBOT_BASE_VIEW_ANGLE, Settings::ROBOT_BASE_ROTATE_ANGLE, Settings::ROBOT_BASE_COLISION_DISTANCE, Settings::ROBOT_BASE_ROTATE_CLOCKWISE, Settings::ROBOT_BASE_SPEED, type);
+  emit updateMap();
+}
+
+void ControlsWidget::onRemoveObstacle(std::shared_ptr<Obstacle> obstacle) {
+  map->removeObstacle(obstacle);
+  this->obstacleParameters->hide();
+  emit updateMap();
+}
+
+void ControlsWidget::onRemoveRobot(std::shared_ptr<Robot> robot) {
+  map->removeRobot(robot);
+  this->robotParameters->hide();
   emit updateMap();
 }

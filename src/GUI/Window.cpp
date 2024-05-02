@@ -54,6 +54,8 @@ void Window::onLoadMap() {
                     visualizationWidget.height());
   controls.setMap(simulation.getMap());
   visualizationWidget.setMap(simulation.getMap());
+  controls.onObstacleDeselected();
+  controls.onRobotDeselected();
   emit onVisualize();
 }
 

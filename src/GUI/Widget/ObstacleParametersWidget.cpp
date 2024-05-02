@@ -1,4 +1,5 @@
 #include "GUI/Widget/ObstacleParametersWidget.hpp"
+#include "GUI/Button.hpp"
 #include "GUI/Frame.hpp"
 #include "GUI/Label.hpp"
 #include <QDoubleSpinBox>
@@ -37,9 +38,16 @@ ObstacleParametersWidget::ObstacleParametersWidget(QWidget *parent)
   connect(height, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
           &ObstacleParametersWidget::onHeightChanged);
 
+  Button *remove = new Button("Remove");
+
+  connect(remove, &Button::clicked, [this]() {
+        emit removeObstacle(obstacle);
+  });
+
   frameLayout->addWidget(label, 0, Qt::AlignCenter);
   frameLayout->addLayout(positionLayout);
   frameLayout->addLayout(dimensionLayout);
+  frameLayout->addWidget(remove);
 
   layout->addWidget(frame);
 

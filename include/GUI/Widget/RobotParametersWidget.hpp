@@ -36,6 +36,7 @@ class RobotParametersWidget: public QWidget {
 
     signals:
         void updateMap();
+        void removeRobot(std::shared_ptr<Robot> robot);
 
  private:
     void onXChanged(double value);

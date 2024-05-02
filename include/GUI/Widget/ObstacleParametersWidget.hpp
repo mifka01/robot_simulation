@@ -28,6 +28,7 @@ class ObstacleParametersWidget: public QWidget {
 
     signals:
         void updateMap();
+        void removeObstacle(std::shared_ptr<Obstacle> obstacle);
 
  private:
     void onXChanged(double value);

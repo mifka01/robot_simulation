@@ -60,3 +60,21 @@ void Map::addRobot(double x, double y, double diameter, double viewAngle, double
     robots.push_back(std::make_shared<AutonomousRobot>(autoRobot));
   }
 }
+
+void Map::removeObstacle(std::shared_ptr<Obstacle> obstacle) {
+    for (auto it = obstacles.begin(); it != obstacles.end(); ++it) {
+        if (*it == obstacle) {
+            obstacles.erase(it);
+            break;
+        }
+    }
+}
+
+void Map::removeRobot(std::shared_ptr<Robot> robot) {
+    for (auto it = robots.begin(); it != robots.end(); ++it) {
+        if (*it == robot) {
+            robots.erase(it);
+            break;
+        }
+    }
+}

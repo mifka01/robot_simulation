@@ -24,6 +24,8 @@ class ControlsWidget : public QWidget {
   void onObstacleDeselected();
   void onRobotSelected(std::shared_ptr<Robot> robot);
   void onRobotDeselected();
+  void onRemoveObstacle(std::shared_ptr<Obstacle> obstacle);
+  void onRemoveRobot(std::shared_ptr<Robot> robot);
 
  signals:
   void loadMapClicked();
