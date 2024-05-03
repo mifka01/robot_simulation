@@ -3,6 +3,7 @@
 #include "GUI/Frame.hpp"
 #include "GUI/Label.hpp"
 #include <QVBoxLayout>
+#include <QShortcut>
 
 ManualRobotControlsWidget::ManualRobotControlsWidget(QWidget* parent) : QWidget(parent) {
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -30,9 +31,21 @@ ManualRobotControlsWidget::ManualRobotControlsWidget(QWidget* parent) : QWidget(
 
     layout->addWidget(frame);
 
+    QShortcut *moveShortcut = new QShortcut(QKeySequence(Qt::Key_W), moveButton);
+    connect(moveShortcut, &QShortcut::activated, this, &ManualRobotControlsWidget::onMoveClicked);
+
+    QShortcut *turnLeftShortcut = new QShortcut(QKeySequence(Qt::Key_A), turnLeftButton);
+    connect(turnLeftShortcut, &QShortcut::activated, this, &ManualRobotControlsWidget::onTurnLeftClicked);
+
+    QShortcut *turnRightShortcut = new QShortcut(QKeySequence(Qt::Key_D), turnRightButton);
+    connect(turnRightShortcut, &QShortcut::activated, this, &ManualRobotControlsWidget::onTurnRightClicked);
+
+    QShortcut *stopShortcut = new QShortcut(QKeySequence(Qt::Key_S), stopButton);
+    connect(stopShortcut, &QShortcut::activated, this, &ManualRobotControlsWidget::onStopClicked);
+
     connect(moveButton, &Button::clicked, this, &ManualRobotControlsWidget::onMoveClicked);
-    connect(stopButton, &Button::clicked, this, &ManualRobotControlsWidget::onStopClicked);
     connect(turnLeftButton, &Button::clicked, this, &ManualRobotControlsWidget::onTurnLeftClicked);
+    connect(stopButton, &Button::clicked, this, &ManualRobotControlsWidget::onStopClicked);
     connect(turnRightButton, &Button::clicked, this, &ManualRobotControlsWidget::onTurnRightClicked);
 }
 
