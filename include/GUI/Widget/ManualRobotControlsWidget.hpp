@@ -1,5 +1,5 @@
 /**
- * @file ManulRobotControlsWidget.hpp
+ * @file ManualRobotControlsWidget.hpp
  * @brief This file contains declaration of ManualRobotControlsWidget class
  * which is responsible for handling user interactions with the manual robot
  * controls
