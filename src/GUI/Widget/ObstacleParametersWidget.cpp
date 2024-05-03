@@ -90,6 +90,7 @@ void ObstacleParametersWidget::setObstacle(std::shared_ptr<Obstacle> obstacle) {
   y->setValue(obstacle->getY());
   width->setValue(obstacle->getWidth());
   height->setValue(obstacle->getHeight());
+  rotation->setValue(obstacle->getRotation());
 }
 
 void ObstacleParametersWidget::onXChanged(double value) {

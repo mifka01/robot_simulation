@@ -35,6 +35,6 @@ class Obstacle {
 
   void update();
 
-  std::vector<Point> getPoints() const { return points; }
+  std::vector<Point> &getPoints() { return points; }
   BoundingBox getBoundingBox() const { return boundingBox; }
 };
