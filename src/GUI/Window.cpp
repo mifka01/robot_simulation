@@ -1,18 +1,20 @@
 #include "GUI/Window.hpp"
+#include "GUI/MapManager.hpp"
+#include "Settings.hpp"
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QString>
-#include "GUI/MapManager.hpp"
-#include "Settings.hpp"
 
-Window::Window(QWidget* parent) : QMainWindow(parent) {
+Window::Window(QWidget *parent) : QMainWindow(parent) {
   setWindowTitle(Settings::TITLE);
   setMinimumSize(Settings::WINDOW_MIN_W, Settings::WINDOW_MIN_H);
+  setStyleSheet("QMainWindow {background-color: " +
+                QString(Settings::BACKGROUND_COLOR) + ";}");
 
-  QWidget* centralWidget = new QWidget(this);
+  QWidget *centralWidget = new QWidget(this);
   setCentralWidget(centralWidget);
 
-  QHBoxLayout* layout = new QHBoxLayout(centralWidget);
+  QHBoxLayout *layout = new QHBoxLayout(centralWidget);
   layout->setContentsMargins(0, 0, 0, 0);
 
   visualizationWidget.setSizePolicy(QSizePolicy::Expanding,
@@ -37,10 +39,14 @@ Window::Window(QWidget* parent) : QMainWindow(parent) {
   connect(&controls, &ControlsWidget::startClicked, this, &Window::onStart);
   connect(&controls, &ControlsWidget::stopClicked, this, &Window::onStop);
   connect(&controls, &ControlsWidget::updateMap, this, &Window::onVisualize);
-  connect(&visualizationWidget, &VisualizationWidget::obstacleSelected, &controls, &ControlsWidget::onObstacleSelected);
-  connect(&visualizationWidget, &VisualizationWidget::obstacleDeselected, &controls, &ControlsWidget::onObstacleDeselected);
-  connect(&visualizationWidget, &VisualizationWidget::robotSelected, &controls, &ControlsWidget::onRobotSelected);
-  connect(&visualizationWidget, &VisualizationWidget::robotDeselected, &controls, &ControlsWidget::onRobotDeselected);
+  connect(&visualizationWidget, &VisualizationWidget::obstacleSelected,
+          &controls, &ControlsWidget::onObstacleSelected);
+  connect(&visualizationWidget, &VisualizationWidget::obstacleDeselected,
+          &controls, &ControlsWidget::onObstacleDeselected);
+  connect(&visualizationWidget, &VisualizationWidget::robotSelected, &controls,
+          &ControlsWidget::onRobotSelected);
+  connect(&visualizationWidget, &VisualizationWidget::robotDeselected,
+          &controls, &ControlsWidget::onRobotDeselected);
 }
 
 void Window::onLoadMap() {
@@ -69,19 +75,13 @@ void Window::onSaveMap() {
   MapManager::saveMap(filePath, *simulation.getMap());
 }
 
-void Window::onStart() {
-  updateTimer.start();
-}
+void Window::onStart() { updateTimer.start(); }
 
-void Window::onStop() {
-  updateTimer.stop();
-}
+void Window::onStop() { updateTimer.stop(); }
 
 void Window::onTick() {
   simulation.run();
   emit onVisualize();
 }
 
-void Window::onVisualize() {
-  visualizationWidget.update();
-}
+void Window::onVisualize() { visualizationWidget.update(); }

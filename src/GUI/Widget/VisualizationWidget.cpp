@@ -2,18 +2,20 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include "GUI/Widget/VisualizationWidget.hpp"
+#include "Settings.hpp"
 
 void VisualizationWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing, true);
   painter.setPen(Qt::NoPen);
 
-  for (const auto &robot : map->getRobots()) {
-        drawRobot(painter, robot);
-  }
 
   for (const auto &obstacle : map->getObstacles()) {
         drawObstacle(painter, obstacle);
+  }
+
+  for (const auto &robot : map->getRobots()) {
+        drawRobot(painter, robot);
   }
 
 }
@@ -24,47 +26,97 @@ void VisualizationWidget::resizeEvent(QResizeEvent *event) {
   map->setHeight(height());
 }
 
-void VisualizationWidget::drawObstacle(QPainter &painter,
-                                       std::shared_ptr<Obstacle> obstacle) {
+void VisualizationWidget::drawObstacle(QPainter &painter, std::shared_ptr<Obstacle> obstacle) {
 
-    if(obstacle == selectedObstacle){
-        painter.setBrush(Qt::blue);
-        painter.drawRect(obstacle->getX() - 5, obstacle->getY() - 5, obstacle->getWidth() + 10, obstacle->getHeight() + 10);
+    QColor color;
+    color.setNamedColor(Settings::OBSTACLE_COLOR);
+    
+    QBrush brush(color);
+    
+    painter.setBrush(brush);
+
+    QPen pen;
+    pen.setWidth(Settings::OBSTACLE_BORDER_WIDTH);
+    if (obstacle == selectedObstacle) {
+        QColor color;
+        color.setNamedColor(Settings::SELECTED_COLOR);
+        pen.setColor(color);
+    } else {
+        QColor color;
+        color.setNamedColor(Settings::OBSTACLE_BORDER_COLOR);
+        pen.setColor(color);
     }
-    painter.setBrush(Qt::red);
-    painter.drawRect(obstacle->getX(), obstacle->getY(), obstacle->getWidth(),
-                     obstacle->getHeight());
+
+    color.setNamedColor(Settings::OBSTACLE_COLOR);
+    auto points = obstacle->getPoints();
+    QPolygonF polygon;
+    painter.setPen(pen);
+    painter.setBrush(color);
+    for (int i = 0; i < 4; i++) {
+      polygon << QPointF(points[i].x, points[i].y);
+    }
+    painter.drawPolygon(polygon);
 }
 
 void VisualizationWidget::drawRobot(QPainter &painter, std::shared_ptr<Robot> robot){
-    if(robot == selectedRobot){
-        painter.setBrush(Qt::red);
-        painter.drawEllipse(robot->getX() - 5, robot->getY() - 5, robot->getDiameter() + 10, robot->getDiameter() + 10);
-    }
 
+      QColor color;
     if (robot->getType() == Robot::Type::MANUAL) {
-      painter.setBrush(Qt::green);
+      color.setNamedColor(Settings::MANUAL_ROBOT_COLOR);
+      painter.setBrush(color);
     } else {
-      painter.setBrush(Qt::blue);
+      color.setNamedColor(Settings::AUTONOMOUS_ROBOT_COLOR);
+      painter.setBrush(color);
     }
 
+    QPen pen;
+    pen.setWidth(Settings::OBSTACLE_BORDER_WIDTH);
+    if (robot == selectedRobot) {
+        QColor color;
+        color.setNamedColor(Settings::SELECTED_COLOR);
+        pen.setColor(color);
+    } else {
+        QColor color;
+        color.setNamedColor(Settings::ROBOT_BORDER_COLOR);
+        pen.setColor(color);
+    }
+    pen.setWidth(Settings::ROBOT_BORDER_WIDTH);
+    painter.setPen(pen);
     painter.drawEllipse(robot->getX(), robot->getY(), robot->getDiameter(),
                         robot->getDiameter());
 
-    painter.setPen(Qt::black);
+
     painter.drawLine(robot->getX() + robot->getDiameter() / 2,
                      robot->getY() + robot->getDiameter() / 2,
                      robot->getX() + robot->getDiameter() / 2 +
                          robot->getDiameter() / 2 * cos(robot->getViewAngleRad()),
                      robot->getY() + robot->getDiameter() / 2 +
                          robot->getDiameter() / 2 * sin(robot->getViewAngleRad()));
-    painter.setPen(Qt::NoPen);
+
+    int eyeDiameter = robot->getDiameter() / 10;
+    int eyeDistance = robot->getDiameter() / 3;
+
+
+    double eyeAngle = robot->getViewAngleRad() - M_PI / 6 ; // Adjust eye angle as needed
+    double eyeX1 = robot->getX() + robot->getDiameter() / 2 + eyeDistance * cos(eyeAngle);
+    double eyeY1 = robot->getY() + robot->getDiameter() / 2 + eyeDistance * sin(eyeAngle);
+    eyeAngle = robot->getViewAngleRad() + M_PI / 6; // Adjust eye angle as needed
+    double eyeX2 = robot->getX() + robot->getDiameter() / 2 + eyeDistance * cos(eyeAngle);
+    double eyeY2 = robot->getY() + robot->getDiameter() / 2 + eyeDistance * sin(eyeAngle);
+
+    painter.setBrush(pen.color());
+
+    painter.drawEllipse(QPointF(eyeX1, eyeY1), eyeDiameter, eyeDiameter);
+    painter.drawEllipse(QPointF(eyeX2, eyeY2), eyeDiameter, eyeDiameter);
 
     auto box = robot->getViewBox();
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(Qt::yellow);
+    color.setNamedColor(Settings::ROBOT_VIEW_COLOR);
     auto points = box.getPoints();
     QPolygonF polygon;
+    QPen dashpen(color);
+    dashpen.setStyle(Qt::DashLine);
+    painter.setPen(dashpen);
+    painter.setBrush(Qt::NoBrush);
     for (int i = 0; i < 4; i++) {
       polygon << QPointF(points[i].x, points[i].y);
     }
@@ -87,16 +139,9 @@ void VisualizationWidget::mousePressEvent(QMouseEvent* event) {
         update();
     }
 
-     for (auto& obstacle : map->getObstacles()) {
-        if (obstacle->getBoundingBox().contains({x, y})) {
-            grabbedObstacle = obstacle;
-            selectedObstacle = obstacle;
-            update();
-            emit obstacleSelected(obstacle);
-            return;
-        }
-    }
-    for (auto& robot : map->getRobots()) {
+    auto robots = map->getRobots();
+    std::reverse(robots.begin(), robots.end());
+    for (auto& robot : robots) {
         if (robot->getBoundingBox().contains({x, y})) {
             grabbedRobot = robot;
             selectedRobot = robot;
@@ -106,7 +151,18 @@ void VisualizationWidget::mousePressEvent(QMouseEvent* event) {
         }
     }
 
-
+    auto obstacles = map->getObstacles();
+    std::reverse(obstacles.begin(), obstacles.end());
+    
+    for (auto& obstacle : obstacles) {
+        if (obstacle->getBoundingBox().contains({x, y})) {
+            grabbedObstacle = obstacle;
+            selectedObstacle = obstacle;
+            update();
+            emit obstacleSelected(obstacle);
+            return;
+        }
+    }
 }
 
 void VisualizationWidget::mouseMoveEvent(QMouseEvent* event) {
