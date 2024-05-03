@@ -97,7 +97,7 @@ void ControlsWidget::onStopClicked() {
 
 void ControlsWidget::onAddObstacle() {
   emit stopClicked();
-  map->addObstacle(map->getWidth() / 2, map->getHeight() / 2, Settings::OBSTACLE_BASE_WIDTH, Settings::OBSTACLE_BASE_HEIGHT);
+  map->addObstacle(map->getWidth() / 2, map->getHeight() / 2, Settings::OBSTACLE_BASE_WIDTH, Settings::OBSTACLE_BASE_HEIGHT, Settings::OBSTACLE_BASE_ROTATION);
   emit updateMap();
 }
 

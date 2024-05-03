@@ -39,6 +39,12 @@ ObstacleParametersWidget::ObstacleParametersWidget(QWidget *parent)
   connect(height, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
           &ObstacleParametersWidget::onHeightChanged);
 
+  
+  QHBoxLayout *rotationLayout = new QHBoxLayout();
+  rotation = createParameterControl("Rotation:", -360, 360, rotationLayout);
+  connect(rotation, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
+          &ObstacleParametersWidget::onRotationChanged);
+
   Button *remove = new Button("Remove");
   QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), remove);
 
@@ -50,6 +56,7 @@ ObstacleParametersWidget::ObstacleParametersWidget(QWidget *parent)
   frameLayout->addWidget(label, 0, Qt::AlignCenter);
   frameLayout->addLayout(positionLayout);
   frameLayout->addLayout(dimensionLayout);
+  frameLayout->addLayout(rotationLayout);
   frameLayout->addWidget(remove);
 
   layout->addWidget(frame);
@@ -109,6 +116,13 @@ void ObstacleParametersWidget::onWidthChanged(double value) {
 void ObstacleParametersWidget::onHeightChanged(double value) {
   if (obstacle && obstacle->getHeight() != value) {
     obstacle->setHeight(value);
+    emit updateMap();
+  }
+}
+
+void ObstacleParametersWidget::onRotationChanged(double value) {
+  if (obstacle && obstacle->getRotation() != value) {
+    obstacle->setRotation(value);
     emit updateMap();
   }
 }

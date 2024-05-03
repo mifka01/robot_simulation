@@ -4,8 +4,9 @@
 class ViewBox: public BoundingBox{
 
 public:
-    ViewBox(Point topLeft, Point topRight, Point bottomLeft, Point bottomRight)
-        : BoundingBox(topLeft, topRight, bottomLeft, bottomRight) {}
+    ViewBox(Point topLeft, Point topRight, Point bottomRight, Point bottomLeft)
+        : BoundingBox(topLeft, topRight, bottomRight, bottomLeft) {
+    }
 
     void rotate(double angle, double centerX, double centerY);
 

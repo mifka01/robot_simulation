@@ -2,18 +2,17 @@
 #include "Model/Robot/AutonomousRobot.hpp"
 #include "Model/Robot/ManualRobot.hpp"
 #include <cmath>
-#include "Settings.hpp"
 
 void Map::adjustPosition(double& x, double& y, int w, int h) {
-    if (x < Settings::BORDER_SIZE) {
-        x = Settings::BORDER_SIZE;
-    } else if (x + w > width - Settings::BORDER_SIZE) {
-        x = width - w - Settings::BORDER_SIZE;
+    if (x < 0) {
+        x = 0;
+    } else if (x + w > width) {
+        x = width - w;
     }
-    if (y < Settings::BORDER_SIZE) {
-        y = Settings::BORDER_SIZE;
-    } else if (y + h > height - Settings::BORDER_SIZE) {
-        y = height - h - Settings::BORDER_SIZE;
+    if (y < 0) {
+        y = 0;
+    } else if (y + h > height) {
+        y = height - h;
     }
 }
 void Map::setMap(
@@ -28,15 +27,16 @@ void Map::setMap(
     addRobot(robot.at("x"), robot.at("y"), robot.at("diameter"), robot.at("view-angle"), robot.at("rotate-angle"), robot.at("view-distance"), robot.at("rotate-clockwise"), robot.at("speed"), Robot::Type(robot.at("type")));
   }
   for (const auto& obstacle : map.at("obstacles")) {
-    addObstacle(obstacle.at("x"), obstacle.at("y"), obstacle.at("width"), obstacle.at("height"));
+    addObstacle(obstacle.at("x"), obstacle.at("y"), obstacle.at("width"), obstacle.at("height"), obstacle.at("rotation"));
   }
 }
 
-void Map::addObstacle(double x, double y, double width, double height) {
+void Map::addObstacle(double x, double y, double width, double height, double rotation) {
   if (isOutOfBounds(x, y, width, height)) {
     adjustPosition(x, y, width,height);
   }
-  Obstacle obs(x, y, width, height);
+  double rotationRad = rotation * M_PI / 180;
+  Obstacle obs(x, y, width, height, rotationRad);
   obstacles.push_back(std::make_shared<Obstacle>(obs));
 }
 

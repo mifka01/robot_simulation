@@ -17,6 +17,8 @@ class ObstacleParametersWidget: public QWidget {
   QDoubleSpinBox* width;
   QDoubleSpinBox* height;
 
+  QDoubleSpinBox* rotation;
+
  public:
     ObstacleParametersWidget(QWidget* parent = nullptr);
 
@@ -35,5 +37,6 @@ class ObstacleParametersWidget: public QWidget {
     void onYChanged(double value);
     void onWidthChanged(double value);
     void onHeightChanged(double value);
+    void onRotationChanged(double value);
 };
 

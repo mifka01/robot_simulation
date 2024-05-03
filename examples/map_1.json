@@ -1,187 +1,45 @@
 {
     "obstacles": [
         {
-            "height": 700,
-            "width": 50,
-            "x": 841,
-            "y": 14
+            "height": 200,
+            "rotation": 0,
+            "width": 100,
+            "x": 209,
+            "y": -742
+        },
+        {
+            "height": 200,
+            "rotation": 35,
+            "width": 100,
+            "x": 33,
+            "y": 25
+        },
+        {
+            "height": 500,
+            "rotation": 7,
+            "width": 500,
+            "x": 418,
+            "y": 48
         },
         {
             "height": 50,
-            "width": 700,
-            "x": 151,
-            "y": 36
-        },
-        {
-            "height": 700,
-            "width": 50,
-            "x": 89,
-            "y": 5
-        },
-        {
-            "height": 50,
-            "width": 700,
-            "x": 117,
-            "y": 525
-        },
-        {
-            "height": 50,
-            "width": 50,
-            "x": 634,
-            "y": 166
-        },
-        {
-            "height": 50,
-            "width": 50,
-            "x": 309,
-            "y": 123
-        },
-        {
-            "height": 50,
-            "width": 50,
-            "x": 355,
-            "y": 313
-        },
-        {
-            "height": 50,
-            "width": 50,
-            "x": 728,
-            "y": 254
-        },
-        {
-            "height": 50,
-            "width": 50,
-            "x": 487,
-            "y": 127
-        },
-        {
-            "height": 50,
-            "width": 50,
-            "x": 507,
-            "y": 307
+            "rotation": 34,
+            "width": 300,
+            "x": 68,
+            "y": 375
         }
     ],
     "robots": [
         {
-            "diameter": 20.5,
+            "diameter": 40,
             "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 1,
+            "rotate-clockwise": true,
+            "speed": 2,
             "type": 1,
-            "view-angle": -315.0000000000001,
+            "view-angle": 225.00000000000045,
             "view-distance": 40,
-            "x": 409.6114357137377,
-            "y": 271.65811690796306
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 0,
-            "view-angle": 0,
-            "view-distance": 20,
-            "x": 169.02943725152272,
-            "y": 486.85786437626894
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 0,
-            "view-angle": -90,
-            "view-distance": 20,
-            "x": 562.1522368914962,
-            "y": 419.0538238691629
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 1,
-            "view-angle": -270,
-            "view-distance": 20,
-            "x": 211.1572875253787,
-            "y": 377.9562773986023
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 1,
-            "view-angle": 270,
-            "view-distance": 20,
-            "x": 584.9289321881345,
-            "y": 418.92893218813447
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 1,
-            "view-angle": 90,
-            "view-distance": 20,
-            "x": 184,
-            "y": 384.1715728752538
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 1,
-            "view-angle": 180,
-            "view-distance": 20,
-            "x": 779.8944443027292,
-            "y": 486.933982822017
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 0,
-            "view-angle": 225,
-            "view-distance": 20,
-            "x": 551,
-            "y": 120.34
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 0,
-            "view-angle": 180,
-            "view-distance": 20,
-            "x": 668.4142135623731,
-            "y": 487.4142135623731
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 0,
-            "view-angle": 0,
-            "view-distance": 20,
-            "x": 673.5441558772841,
-            "y": 103.4558441227157
-        },
-        {
-            "diameter": 20,
-            "rotate-angle": 45,
-            "rotate-clockwise": false,
-            "speed": 2,
-            "type": 0,
-            "view-angle": 90,
-            "view-distance": 20,
-            "x": 804.0416305603428,
-            "y": 393.2132034355966
+            "x": 225.1400435826767,
+            "y": 286.9146468382621
         }
     ]
 }

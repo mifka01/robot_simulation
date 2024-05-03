@@ -52,7 +52,8 @@ public:
         this->viewBox.update(x, y, diameter, diameter, viewDistance, viewAngle);
         ;}
 
-  virtual void setDiameter(double diameter) { this->diameter = diameter; 
+  virtual void setDiameter(double diameter) { 
+    this->diameter = diameter; 
     this->boundingBox.update(x, y, diameter, diameter);
     this->viewBox.update(x, y, diameter, diameter, viewDistance, viewAngle);
   }

@@ -13,6 +13,7 @@ constexpr const int BORDER_SIZE = 5;
 
 constexpr const int OBSTACLE_BASE_WIDTH = 50;
 constexpr const int OBSTACLE_BASE_HEIGHT = 50;
+constexpr const int OBSTACLE_BASE_ROTATION = 0;
 
 constexpr const int ROBOT_BASE_DIAMETER = 20;
 constexpr const int ROBOT_BASE_SPEED = 2;

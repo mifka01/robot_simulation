@@ -1,9 +1,22 @@
 #pragma once
 #include <vector>
 
+struct Vector {
+    double x, y;
+
+    Vector operator-(const Vector& other) const {
+        return {x - other.x, y - other.y};
+    }
+};
+
+
 struct Point {
     double x;
     double y;
+
+    operator Vector() const {
+        return {x, y};
+    }
 };
 
 
@@ -23,9 +36,14 @@ public:
         points.push_back(bottomLeft);
     }
 
-    void update(double x, double y, double width, double height);
+
+    void rotate(double angle, double centerX, double centerY);
+
+    void update(double x, double y, double width, double height, double angle = 0);
 
     bool intersects(const BoundingBox &other) const;
+    std::vector<Vector> getAxes() const;
+    double dotProduct(const Vector &a, const Vector &b) const;
 
     bool contains(const Point &point) const;
 

@@ -59,6 +59,7 @@ void MapManager::saveMap(QString path, IMap& map) {
         o["y"] = obstacle->getY();
         o["width"] = obstacle->getWidth();
         o["height"] = obstacle->getHeight();
+        o["rotation"] = obstacle->getRotation();
         obstacles.append(o);
     }
     obj["obstacles"] = obstacles;
