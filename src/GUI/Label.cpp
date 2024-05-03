@@ -7,5 +7,8 @@ Label::Label(const QString &text, QWidget *parent)
                   "color: " + QString(Settings::LABEL_TEXT_COLOR) + ";"
                   "font-size: 15px;"
                   "font-weight: bold;"
+                  "}"
+                  "QLabel#stopped {"
+                  "color: red;"
                   "}");
 }

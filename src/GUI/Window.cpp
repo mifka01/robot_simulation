@@ -37,7 +37,9 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
   connect(&controls, &ControlsWidget::loadMapClicked, this, &Window::onLoadMap);
   connect(&controls, &ControlsWidget::saveMapClicked, this, &Window::onSaveMap);
   connect(&controls, &ControlsWidget::startClicked, this, &Window::onStart);
+  connect(&controls, &ControlsWidget::startClicked, &visualizationWidget, &VisualizationWidget::onStart);
   connect(&controls, &ControlsWidget::stopClicked, this, &Window::onStop);
+  connect(&controls, &ControlsWidget::stopClicked, &visualizationWidget, &VisualizationWidget::onStop);
   connect(&controls, &ControlsWidget::updateMap, this, &Window::onVisualize);
   connect(&visualizationWidget, &VisualizationWidget::obstacleSelected,
           &controls, &ControlsWidget::onObstacleSelected);

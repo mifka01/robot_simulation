@@ -2,6 +2,7 @@
 #include <memory>
 #include <QPainter>
 #include <QWidget>
+#include "GUI/Label.hpp"
 #include "Model/IMap.hpp"
 #include "Model/Map.hpp"
 
@@ -12,12 +13,14 @@ class VisualizationWidget : public QWidget {
   std::shared_ptr<Obstacle> selectedObstacle;
   std::shared_ptr<Robot> grabbedRobot;
   std::shared_ptr<Robot> selectedRobot;
+  Label *simulationStateLabel;
 
  public:
-  explicit VisualizationWidget(QWidget* parent = nullptr)
-      : QWidget(parent), map(std::make_shared<Map>()) {}
+  explicit VisualizationWidget(QWidget* parent = nullptr);
 
   void setMap(std::shared_ptr<IMap> map) { this->map = map; }
+  void onStop();
+  void onStart();
 
   signals:
     void obstacleSelected(std::shared_ptr<Obstacle> obstacle);
@@ -35,4 +38,5 @@ class VisualizationWidget : public QWidget {
   void mousePressEvent(QMouseEvent* event) override;
   void mouseMoveEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
+
 };

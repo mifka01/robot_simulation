@@ -1,14 +1,26 @@
 #include <cmath>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QHBoxLayout>
 #include "GUI/Widget/VisualizationWidget.hpp"
 #include "Settings.hpp"
 
-void VisualizationWidget::paintEvent(QPaintEvent *event) {
+
+VisualizationWidget::VisualizationWidget(QWidget *parent)
+      : QWidget(parent), map(std::make_shared<Map>()){
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    simulationStateLabel = new Label("Simulation stopped!");
+    simulationStateLabel->setObjectName("stopped");
+    layout->addWidget(simulationStateLabel, 0, Qt::AlignCenter);
+    layout->addStretch();
+    setLayout(layout);
+}
+
+void VisualizationWidget::paintEvent(__attribute((unused))QPaintEvent *event) {
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing, true);
   painter.setPen(Qt::NoPen);
-
 
   for (const auto &obstacle : map->getObstacles()) {
         drawObstacle(painter, obstacle);
@@ -17,7 +29,6 @@ void VisualizationWidget::paintEvent(QPaintEvent *event) {
   for (const auto &robot : map->getRobots()) {
         drawRobot(painter, robot);
   }
-
 }
 
 void VisualizationWidget::resizeEvent(QResizeEvent *event) {
@@ -183,11 +194,19 @@ void VisualizationWidget::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
-void VisualizationWidget::mouseReleaseEvent(QMouseEvent* event) {
+void VisualizationWidget::mouseReleaseEvent(__attribute((unused))QMouseEvent* event) {
     if(grabbedObstacle){
         grabbedObstacle = nullptr;
     }
     if(grabbedRobot){
         grabbedRobot = nullptr;
     }
+}
+
+void VisualizationWidget::onStop() {
+    simulationStateLabel->show();
+}
+
+void VisualizationWidget::onStart() {
+    simulationStateLabel->hide();
 }
