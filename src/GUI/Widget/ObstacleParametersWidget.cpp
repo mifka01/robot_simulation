@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QShortcut>
 
 ObstacleParametersWidget::ObstacleParametersWidget(QWidget *parent)
     : QWidget(parent) {
@@ -39,7 +40,9 @@ ObstacleParametersWidget::ObstacleParametersWidget(QWidget *parent)
           &ObstacleParametersWidget::onHeightChanged);
 
   Button *remove = new Button("Remove");
+  QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), remove);
 
+  connect(shortcut, &QShortcut::activated, remove, &Button::click);
   connect(remove, &Button::clicked, [this]() {
         emit removeObstacle(obstacle);
   });

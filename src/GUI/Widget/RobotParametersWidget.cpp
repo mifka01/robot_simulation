@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QShortcut>
 
 RobotParametersWidget::RobotParametersWidget(QWidget *parent)
     : QWidget(parent) {
@@ -80,7 +81,9 @@ RobotParametersWidget::RobotParametersWidget(QWidget *parent)
           &RobotParametersWidget::onRotateClockwiseChanged);
 
   Button *remove = new Button("Remove");
+  QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), remove);
 
+  connect(shortcut, &QShortcut::activated, remove, &Button::click);
   connect(remove, &Button::clicked, [this]() { emit removeRobot(robot); });
 
   frameLayout->addWidget(label, 0, Qt::AlignCenter);

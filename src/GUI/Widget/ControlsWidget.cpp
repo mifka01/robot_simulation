@@ -110,11 +110,14 @@ void ControlsWidget::onAddRobot(Robot::Type type) {
 void ControlsWidget::onRemoveObstacle(std::shared_ptr<Obstacle> obstacle) {
   map->removeObstacle(obstacle);
   this->obstacleParameters->hide();
+  this->spawnControls->show();
   emit updateMap();
 }
 
 void ControlsWidget::onRemoveRobot(std::shared_ptr<Robot> robot) {
   map->removeRobot(robot);
   this->robotParameters->hide();
+  this->manualRobotControls->hide();
+  this->spawnControls->show();
   emit updateMap();
 }
