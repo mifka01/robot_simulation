@@ -26,7 +26,7 @@ public:
     virtual void setHeight(int height) = 0;
 
     virtual void addObstacle(double x, double y, double width, double height) = 0;
-    virtual void addRobot(double x, double y, double diameter, double viewAngle, double rotateAngle, double viewDistance, bool rotateClockwise, int speed, int type) = 0;
+    virtual void addRobot(double x, double y, double diameter, double viewAngle, double rotateAngle, double viewDistance, bool rotateClockwise, int speed, Robot::Type type) = 0;
 
     virtual void removeObstacle(std::shared_ptr<Obstacle> obstacle) = 0;
     virtual void removeRobot(std::shared_ptr<Robot> robot) = 0;

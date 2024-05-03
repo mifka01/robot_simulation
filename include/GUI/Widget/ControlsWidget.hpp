@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QObject>
 #include <memory>
+#include "GUI/Widget/ManualRobotControlsWidget.hpp"
 #include "GUI/Widget/ObstacleParametersWidget.hpp"
 #include "GUI/Widget/RobotParametersWidget.hpp"
 #include "Model/IMap.hpp"
@@ -13,6 +14,7 @@ class ControlsWidget : public QWidget {
   std::shared_ptr<IMap> map;
   ObstacleParametersWidget* obstacleParameters;
   RobotParametersWidget* robotParameters;
+  ManualRobotControlsWidget* manualRobotControls;
   
 
  public:
@@ -42,5 +44,5 @@ class ControlsWidget : public QWidget {
   void onStartClicked();
   void onStopClicked();
   void onAddObstacle();
-  void onAddRobot(int type);
+  void onAddRobot(Robot::Type type);
 };

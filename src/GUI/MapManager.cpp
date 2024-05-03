@@ -47,7 +47,7 @@ void MapManager::saveMap(QString path, IMap& map) {
         r["view-distance"] = robot->getViewDistance();
         r["rotate-clockwise"] = robot->getRotateClockwise();
         r["speed"] = robot->getSpeed();
-        r["type"] = robot->getType();
+        r["type"] = (int)robot->getType();
         robots.append(r);
     }
     obj["robots"] = robots;

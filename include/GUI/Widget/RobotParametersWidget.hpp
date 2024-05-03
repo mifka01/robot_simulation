@@ -26,7 +26,7 @@ class RobotParametersWidget: public QWidget {
  public:
     RobotParametersWidget(QWidget* parent = nullptr);
 
-    void setRobot(std::shared_ptr<Robot> obstacle);
+    void setRobot(std::shared_ptr<Robot> robot);
     QDoubleSpinBox *createParameterControl(const QString &labelText,
                                        double minRange, double maxRange,
                                        QHBoxLayout *parentLayout);

@@ -42,7 +42,7 @@ void VisualizationWidget::drawRobot(QPainter &painter, std::shared_ptr<Robot> ro
         painter.drawEllipse(robot->getX() - 5, robot->getY() - 5, robot->getDiameter() + 10, robot->getDiameter() + 10);
     }
 
-    if (robot->getType() == 0) {
+    if (robot->getType() == Robot::Type::MANUAL) {
       painter.setBrush(Qt::green);
     } else {
       painter.setBrush(Qt::blue);

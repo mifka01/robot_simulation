@@ -3,8 +3,17 @@
 #include "Model/ViewBox.hpp"
 #include <cmath>
 
+
 class Robot {
-protected:
+
+public:
+
+enum class Type{
+    MANUAL = 0,
+    AUTONOMOUS
+};
+
+private:
   double x;
   double y;
   double diameter;
@@ -13,7 +22,7 @@ protected:
   double viewDistance;
   bool rotateClockwise;
   int speed;
-  int type;
+  Type type;
   BoundingBox boundingBox;
   ViewBox viewBox;
 
@@ -29,6 +38,8 @@ public:
   virtual void turn();
   virtual void turnLeft();
   virtual void turnRight();
+  virtual void run() = 0;
+  virtual void onCollision()  = 0;
 
   void setX(double x) { 
         this->x = x; 
@@ -77,7 +88,7 @@ public:
   bool getRotateClockwise() const { return rotateClockwise; }
 
   int getSpeed() const { return speed; }
-  virtual int getType() const = 0;
+  virtual Type getType() const = 0;
 
   BoundingBox getBoundingBox() const { return boundingBox; }
   ViewBox getViewBox() const { return viewBox; }

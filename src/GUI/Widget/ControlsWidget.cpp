@@ -24,10 +24,10 @@ layout->addWidget(spawnControls);
 
 connect(spawnControls, &SpawnControlsWidget::addObstacleClicked, this, &ControlsWidget::onAddObstacle);
 connect(spawnControls, &SpawnControlsWidget::addManualRobotClicked, this, [this]() {
-    this->onAddRobot(0);
+    this->onAddRobot(Robot::Robot::Type::MANUAL);
 });
 connect(spawnControls, &SpawnControlsWidget::addAutoRobotClicked, this, [this]() {
-    this->onAddRobot(1);
+    this->onAddRobot(Robot::Robot::Type::AUTONOMOUS);
 });
 
 obstacleParameters = new ObstacleParametersWidget(this);
@@ -43,6 +43,10 @@ robotParameters->hide();
 
 connect(robotParameters, &RobotParametersWidget::updateMap, this, &ControlsWidget::updateMap);
 connect(robotParameters, &RobotParametersWidget::removeRobot, this, &ControlsWidget::onRemoveRobot);
+
+manualRobotControls = new ManualRobotControlsWidget(this);
+layout->addWidget(manualRobotControls);
+manualRobotControls->hide();
 
 layout->addStretch();
 setLayout(layout);
@@ -60,10 +64,15 @@ void ControlsWidget::onObstacleDeselected() {
 void ControlsWidget::onRobotSelected(std::shared_ptr<Robot> robot) {
     robotParameters->setRobot(robot);
     robotParameters->show();
+    if (robot->getType() == Robot::Type::MANUAL) {
+        manualRobotControls->setRobot(std::static_pointer_cast<ManualRobot>(robot));
+        manualRobotControls->show();
+    };
 }
 
 void ControlsWidget::onRobotDeselected() {
     robotParameters->hide();
+    manualRobotControls->hide();
 }
 
 void ControlsWidget::onLoadMapClicked() {
@@ -88,7 +97,7 @@ void ControlsWidget::onAddObstacle() {
   emit updateMap();
 }
 
-void ControlsWidget::onAddRobot(int type) {
+void ControlsWidget::onAddRobot(Robot::Type type) {
   emit stopClicked();
   map->addRobot(map->getWidth() / 2, map->getHeight() / 2, Settings::ROBOT_BASE_DIAMETER, Settings::ROBOT_BASE_VIEW_ANGLE, Settings::ROBOT_BASE_ROTATE_ANGLE, Settings::ROBOT_BASE_COLISION_DISTANCE, Settings::ROBOT_BASE_ROTATE_CLOCKWISE, Settings::ROBOT_BASE_SPEED, type);
   emit updateMap();

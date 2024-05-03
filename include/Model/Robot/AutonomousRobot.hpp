@@ -5,5 +5,7 @@ class AutonomousRobot : public Robot {
  public:
   using Robot::Robot;
 
-  int getType() const override { return 1; }
+  Type getType() const override { return Robot::Type::AUTONOMOUS; }
+  void run() override;
+  void onCollision() override;
 };

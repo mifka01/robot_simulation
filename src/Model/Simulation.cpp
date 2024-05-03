@@ -15,7 +15,7 @@ void Simulation::run() {
 
     for (const auto &obstacle : obstacles) {
       if (robot->getViewBox().intersects(obstacle->getBoundingBox())) {
-        robot->turn();
+        robot->onCollision();
         blocked = true;
         break;
       }
@@ -24,13 +24,13 @@ void Simulation::run() {
     for (const auto &otherRobot : map->getRobots()) {
       if (robot != otherRobot &&
           robot->getViewBox().intersects(otherRobot->getBoundingBox())) {
-        robot->turn();
+        robot->onCollision();
         blocked = true;
         break;
       }
     }
 
     if (!blocked)
-      robot->move();
+      robot->run();
   }
 }
