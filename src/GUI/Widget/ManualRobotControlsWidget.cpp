@@ -13,11 +13,11 @@ ManualRobotControlsWidget::ManualRobotControlsWidget(QWidget* parent) : QWidget(
     Label *label = new Label("Manual controls");
     frameLayout->addWidget(label, 0, Qt::AlignCenter);
 
-    auto bottom = new QHBoxLayout(this);
-    auto moveButton = new Button("Move", this);
-    auto stopButton = new Button("Stop", this);
-    auto turnLeftButton = new Button("Turn Left", this);
-    auto turnRightButton = new Button("Turn Right", this);
+    auto bottom = new QHBoxLayout();
+    auto moveButton = new Button("Move");
+    auto stopButton = new Button("Stop");
+    auto turnLeftButton = new Button("Turn Left");
+    auto turnRightButton = new Button("Turn Right");
 
     frameLayout->addWidget(moveButton);
 
