@@ -6,5 +6,6 @@ pkgs.mkShell {
   buildInputs = [
     pkgs.qt5.full
     pkgs.cmake
+    pkgs.doxygen
   ];
 }
