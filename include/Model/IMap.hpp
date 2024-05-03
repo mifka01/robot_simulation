@@ -30,5 +30,13 @@ public:
 
     virtual void removeObstacle(std::shared_ptr<Obstacle> obstacle) = 0;
     virtual void removeRobot(std::shared_ptr<Robot> robot) = 0;
+
+    bool isOutOfBounds(double x, double y, int w, int h) {
+        return x < 0 || x + w > getWidth() || y < 0 || y + h > getHeight();
+    }
+
+    bool isOutOfBounds(Point point) {
+        return isOutOfBounds(point.x, point.y, 0, 0);
+    }
 };
 

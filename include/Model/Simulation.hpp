@@ -13,6 +13,11 @@ class Simulation {
 
   void run();
 
+bool checkCollisions(
+    const std::shared_ptr<Robot> &robot,
+    const std::vector<std::shared_ptr<Obstacle>> &obstacles,
+    const std::vector<std::shared_ptr<Robot>> &robots);
+
   void setMap(
       const std::map<std::string, std::vector<std::map<std::string, double>>>& map,
       int width,

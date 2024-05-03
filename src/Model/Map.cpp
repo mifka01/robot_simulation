@@ -4,10 +4,6 @@
 #include <cmath>
 #include "Settings.hpp"
 
-bool Map::isOutOfBounds(double x, double y, int w, int h) const {
-    return x < Settings::BORDER_SIZE|| x + w > width - Settings::BORDER_SIZE || y < Settings::BORDER_SIZE || y + h > height - Settings::BORDER_SIZE;
-}
-
 void Map::adjustPosition(double& x, double& y, int w, int h) {
     if (x < Settings::BORDER_SIZE) {
         x = Settings::BORDER_SIZE;
@@ -20,7 +16,6 @@ void Map::adjustPosition(double& x, double& y, int w, int h) {
         y = height - h - Settings::BORDER_SIZE;
     }
 }
-
 void Map::setMap(
     const std::map<std::string, std::vector<std::map<std::string, double>>>& map,
     int width,

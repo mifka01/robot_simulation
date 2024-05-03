@@ -9,28 +9,40 @@ void Simulation::setMap(
 
 void Simulation::run() {
   auto obstacles = map->getObstacles();
+  auto robots = map->getRobots();
 
-  for (auto &robot : map->getRobots()) {
-    bool blocked = false;
-
-    for (const auto &obstacle : obstacles) {
-      if (robot->getViewBox().intersects(obstacle->getBoundingBox())) {
-        robot->onCollision();
-        blocked = true;
-        break;
-      }
-    }
-
-    for (const auto &otherRobot : map->getRobots()) {
-      if (robot != otherRobot &&
-          robot->getViewBox().intersects(otherRobot->getBoundingBox())) {
-        robot->onCollision();
-        blocked = true;
-        break;
-      }
-    }
-
-    if (!blocked)
+  for (auto &robot : robots) {
+    if (checkCollisions(robot, obstacles, robots)) {
+      robot->onCollision();
+    } else {
       robot->run();
+    }
   }
+}
+
+bool Simulation::checkCollisions(
+    const std::shared_ptr<Robot> &robot,
+    const std::vector<std::shared_ptr<Obstacle>> &obstacles,
+    const std::vector<std::shared_ptr<Robot>> &robots) {
+  auto points = robot->getViewBox().getPoints();
+  for (const auto &point : points) {
+    if (map->isOutOfBounds(point)) {
+      return true;
+    }
+  }
+
+  for (const auto &obstacle : obstacles) {
+    if (robot->getViewBox().intersects(obstacle->getBoundingBox())) {
+      return true;
+    }
+  }
+
+  for (const auto &otherRobot : robots) {
+    if (robot != otherRobot &&
+        robot->getViewBox().intersects(otherRobot->getBoundingBox())) {
+      return true;
+    }
+  }
+
+  return false;
 }

@@ -14,9 +14,7 @@ class Map : public IMap{
   std::vector<std::shared_ptr<Robot>> robots = {};
   std::vector<std::shared_ptr<Obstacle>> obstacles = {};
 
-  bool isOutOfBounds(double x, double y, int w, int h) const;
   void adjustPosition(double& x, double& y, int w, int h);
-
 
  public:
     Map() = default;
