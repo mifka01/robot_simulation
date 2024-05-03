@@ -19,7 +19,7 @@ connect(simulationControls, &SimulationControlsWidget::saveMapClicked, this, &Co
 connect(simulationControls, &SimulationControlsWidget::startClicked, this, &ControlsWidget::onStartClicked);
 connect(simulationControls, &SimulationControlsWidget::stopClicked, this, &ControlsWidget::onStopClicked);
 
-SpawnControlsWidget* spawnControls = new SpawnControlsWidget(this);
+spawnControls = new SpawnControlsWidget(this);
 layout->addWidget(spawnControls);
 
 connect(spawnControls, &SpawnControlsWidget::addObstacleClicked, this, &ControlsWidget::onAddObstacle);
@@ -55,15 +55,18 @@ setLayout(layout);
 void ControlsWidget::onObstacleSelected(std::shared_ptr<Obstacle> obstacle) {
     obstacleParameters->setObstacle(obstacle);
     obstacleParameters->show();
+    spawnControls->hide();
 }
 
 void ControlsWidget::onObstacleDeselected() {
     this->obstacleParameters->hide();
+    spawnControls->show();
 }
 
 void ControlsWidget::onRobotSelected(std::shared_ptr<Robot> robot) {
     robotParameters->setRobot(robot);
     robotParameters->show();
+    spawnControls->hide();
     if (robot->getType() == Robot::Type::MANUAL) {
         manualRobotControls->setRobot(std::static_pointer_cast<ManualRobot>(robot));
         manualRobotControls->show();
@@ -73,6 +76,7 @@ void ControlsWidget::onRobotSelected(std::shared_ptr<Robot> robot) {
 void ControlsWidget::onRobotDeselected() {
     robotParameters->hide();
     manualRobotControls->hide();
+    spawnControls->show();
 }
 
 void ControlsWidget::onLoadMapClicked() {

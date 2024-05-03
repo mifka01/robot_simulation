@@ -6,12 +6,14 @@
 #include "GUI/Widget/ManualRobotControlsWidget.hpp"
 #include "GUI/Widget/ObstacleParametersWidget.hpp"
 #include "GUI/Widget/RobotParametersWidget.hpp"
+#include "GUI/Widget/SpawnControlsWidget.hpp"
 #include "Model/IMap.hpp"
 #include <memory>
 
 class ControlsWidget : public QWidget {
   Q_OBJECT
   std::shared_ptr<IMap> map;
+  SpawnControlsWidget* spawnControls;
   ObstacleParametersWidget* obstacleParameters;
   RobotParametersWidget* robotParameters;
   ManualRobotControlsWidget* manualRobotControls;
