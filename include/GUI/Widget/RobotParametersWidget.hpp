@@ -14,6 +14,7 @@
 #include <QObject>
 #include <QSpinBox>
 #include <QWidget>
+#include <memory>
 #include "Model/Robot/Robot.hpp"
 
 /**

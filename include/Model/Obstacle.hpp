@@ -6,6 +6,7 @@
  * @date April 2024
  */
 #pragma once
+#include <cmath>
 #include "Model/BoundingBox.hpp"
 
 /**

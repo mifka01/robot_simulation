@@ -12,6 +12,7 @@
 #include <QHBoxLayout>
 #include <QObject>
 #include <QWidget>
+#include <memory>
 #include "Model/Obstacle.hpp"
 
 /**

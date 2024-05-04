@@ -6,6 +6,7 @@
  * @date April 2024
  */
 #include "Model/Map.hpp"
+#include <cmath>
 #include "Model/Robot/AutonomousRobot.hpp"
 #include "Model/Robot/ManualRobot.hpp"
 
