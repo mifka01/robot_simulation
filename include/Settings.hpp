@@ -23,6 +23,9 @@ constexpr const char* BUTTON_PRESSED_COLOR = "#555555";
 
 constexpr const char* BUTTON_TEXT_COLOR = "#FFFFFF";
 constexpr const char* FRAME_BORDER_COLOR = "#111111";
+constexpr const int FRAME_BORDER_WIDTH = 2;
+constexpr const char* FRAME_BACKGROUND_COLOR = "#E3E7D3";
+constexpr const int FRAME_BORDER_RADIUS = 5;
 
 constexpr const char* LABEL_TEXT_COLOR = "#333333";
 

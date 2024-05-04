@@ -6,15 +6,23 @@
  * @date April 2024
  */
 #include "GUI/Frame.hpp"
+#include <QGraphicsDropShadowEffect>
 #include "Settings.hpp"
 
 Frame::Frame(QWidget* parent) : QFrame(parent) {
-  setStyleSheet(
-      "QFrame#frame {"
-      "border: 1px solid " +
+  this->setFrameShape(QFrame::Panel);
+  this->setStyleSheet(
+      "QFrame#frame{"
+      "background-color: " +
+      QString(Settings::FRAME_BACKGROUND_COLOR) +
+      ";"
+      "border: " +
+      QString::number(Settings::FRAME_BORDER_WIDTH) + "px solid " +
       QString(Settings::FRAME_BORDER_COLOR) +
       ";"
-      "padding: 5px 10px;"
-      "border-radius: 3px;"
+      "border-radius: " +
+      QString::number(Settings::FRAME_BORDER_RADIUS) +
+      "px;"
+      "padding: 10px;"
       "}");
 }
