@@ -1,3 +1,9 @@
+/**
+ * @file Settings.hpp
+ * @brief This file contains all settings for the application
+ * @author Mifka Radim (xmifka00)
+ * @date April 2024
+ */
 #pragma once
 
 namespace Settings {
@@ -11,9 +17,9 @@ constexpr const int FPS = 60;
 // App colors
 constexpr const char* BACKGROUND_COLOR = "#DFE0E2";
 constexpr const char* BUTTON_COLOR = "#333333";
-constexpr const char* BUTTON_BORDER_COLOR= "#222222";
-constexpr const char* BUTTON_HOVER_COLOR = "#444444"; 
-constexpr const char* BUTTON_PRESSED_COLOR = "#555555"; 
+constexpr const char* BUTTON_BORDER_COLOR = "#222222";
+constexpr const char* BUTTON_HOVER_COLOR = "#444444";
+constexpr const char* BUTTON_PRESSED_COLOR = "#555555";
 
 constexpr const char* BUTTON_TEXT_COLOR = "#FFFFFF";
 constexpr const char* FRAME_BORDER_COLOR = "#111111";
@@ -46,7 +52,5 @@ constexpr const char* ROBOT_BORDER_COLOR = "#000000";
 constexpr const int ROBOT_BORDER_WIDTH = 2;
 constexpr const char* ROBOT_ANGLE_LINE_COLOR = ROBOT_BORDER_COLOR;
 constexpr const char* ROBOT_VIEW_COLOR = "#FFBE0B";
-
-
 
 }  // namespace Settings

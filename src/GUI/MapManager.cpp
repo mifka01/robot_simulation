@@ -1,3 +1,10 @@
+/**
+ * @file MapManager.cpp
+ * @brief This file contains declaration of MapManager class which is used for
+ * loading and saving maps from and to json files
+ * @author Mifka Radim (xmifka00)
+ * @date April 2024
+ */
 #include "GUI/MapManager.hpp"
 #include <QFile>
 #include <QJsonArray>
@@ -35,42 +42,41 @@ MapManager::loadMap(QString path) {
 }
 
 void MapManager::saveMap(QString path, IMap& map) {
-    QJsonObject obj;
-    QJsonArray robots;
-    for (auto& robot : map.getRobots()) {
-        QJsonObject r;
-        r["x"] = robot->getX();
-        r["y"] = robot->getY();
-        r["diameter"] = robot->getDiameter();
-        r["view-angle"] = robot->getViewAngle();
-        r["rotate-angle"] = robot->getRotateAngle();
-        r["view-distance"] = robot->getViewDistance();
-        r["rotate-clockwise"] = robot->getRotateClockwise();
-        r["speed"] = robot->getSpeed();
-        r["type"] = (int)robot->getType();
-        robots.append(r);
-    }
-    obj["robots"] = robots;
-    
-    QJsonArray obstacles;
-    for (const auto& obstacle : map.getObstacles()) {
-        QJsonObject o;
-        o["x"] = obstacle->getX();
-        o["y"] = obstacle->getY();
-        o["width"] = obstacle->getWidth();
-        o["height"] = obstacle->getHeight();
-        o["rotation"] = obstacle->getRotation();
-        obstacles.append(o);
-    }
-    obj["obstacles"] = obstacles;
-    
-    QJsonDocument doc(obj);
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly)) {
-        throw std::runtime_error("Cannot open file");
-    }
-    file.write(doc.toJson());
-    
+  QJsonObject obj;
+  QJsonArray robots;
+  for (auto& robot : map.getRobots()) {
+    QJsonObject r;
+    r["x"] = robot->getX();
+    r["y"] = robot->getY();
+    r["diameter"] = robot->getDiameter();
+    r["view-angle"] = robot->getViewAngle();
+    r["rotate-angle"] = robot->getRotateAngle();
+    r["view-distance"] = robot->getViewDistance();
+    r["rotate-clockwise"] = robot->getRotateClockwise();
+    r["speed"] = robot->getSpeed();
+    r["type"] = (int)robot->getType();
+    robots.append(r);
+  }
+  obj["robots"] = robots;
+
+  QJsonArray obstacles;
+  for (const auto& obstacle : map.getObstacles()) {
+    QJsonObject o;
+    o["x"] = obstacle->getX();
+    o["y"] = obstacle->getY();
+    o["width"] = obstacle->getWidth();
+    o["height"] = obstacle->getHeight();
+    o["rotation"] = obstacle->getRotation();
+    obstacles.append(o);
+  }
+  obj["obstacles"] = obstacles;
+
+  QJsonDocument doc(obj);
+  QFile file(path);
+  if (!file.open(QIODevice::WriteOnly)) {
+    throw std::runtime_error("Cannot open file");
+  }
+  file.write(doc.toJson());
 }
 
 const std::map<std::string, std::vector<std::map<std::string, double>>>

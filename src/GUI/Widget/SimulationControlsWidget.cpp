@@ -1,71 +1,80 @@
+/**
+ * @file SimulationControlsWidget.cpp
+ * @brief This file contains declaration of SimulationControlsWidget class
+ * which is responsible for handling user interactions with the simulation
+ * controls in the GUI
+ * @author Mifka Radim (xmifka00)
+ * @date April 2024
+ */
+#include "GUI/Widget/SimulationControlsWidget.hpp"
+#include <QFrame>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QFrame>
 #include <QWidget>
-#include "GUI/Widget/SimulationControlsWidget.hpp"
 #include "GUI/Button.hpp"
-#include "GUI/Label.hpp"
 #include "GUI/Frame.hpp"
+#include "GUI/Label.hpp"
 
+SimulationControlsWidget::SimulationControlsWidget(QWidget* parent)
+    : QWidget(parent) {
+  setObjectName("SimulationControlsWidget");
+  QVBoxLayout* layout = new QVBoxLayout();
 
-SimulationControlsWidget::SimulationControlsWidget(QWidget* parent) : QWidget(parent) {
-    setObjectName("SimulationControlsWidget");
-    QVBoxLayout* layout = new QVBoxLayout();
+  Frame* frame = new Frame(this);
+  frame->setObjectName("frame");
+  QVBoxLayout* frameLayout = new QVBoxLayout();
 
-    Frame* frame = new Frame(this);
-    frame->setObjectName("frame");
-    QVBoxLayout* frameLayout = new QVBoxLayout();
+  Label* label = new Label("Simulation");
 
+  QHBoxLayout* buttons = new QHBoxLayout();
+  Button* start = new Button("Start");
+  buttons->addWidget(start);
 
-    Label* label = new Label("Simulation");
+  Button* stop = new Button("Stop");
+  buttons->addWidget(stop);
 
-    QHBoxLayout* buttons = new QHBoxLayout();
-    Button* start = new Button("Start");
-    buttons->addWidget(start);
+  Button* load = new Button("Load");
+  buttons->addWidget(load);
 
-    Button* stop = new Button("Stop");
-    buttons->addWidget(stop);
+  Button* save = new Button("Save");
+  buttons->addWidget(save);
 
-    Button* load = new Button("Load");
-    buttons->addWidget(load);
+  frameLayout->addWidget(label, 0, Qt::AlignCenter);
+  frameLayout->addLayout(buttons);
 
-    Button* save = new Button("Save");
-    buttons->addWidget(save);
+  frame->setLayout(frameLayout);
 
-    frameLayout->addWidget(label, 0, Qt::AlignCenter);
-    frameLayout->addLayout(buttons);
+  layout->addWidget(frame);
 
-    frame->setLayout(frameLayout);
+  setLayout(layout);
 
-    layout->addWidget(frame);
+  setStyleSheet(
+      "QWidget#SimulationControlsWidget {"
+      "background-color: transparent;"
+      "}");
 
-    setLayout(layout);
-
-    setStyleSheet("QWidget#SimulationControlsWidget {"
-                  "background-color: transparent;" // make the background transparent
-                  "}");
-
-
-    connect(load, &Button::clicked, this, &SimulationControlsWidget::onLoadMapClicked);
-    connect(save, &Button::clicked, this, &SimulationControlsWidget::onSaveMapClicked);
-    connect(start, &Button::clicked, this, &SimulationControlsWidget::onStartClicked);
-    connect(stop, &Button::clicked, this, &SimulationControlsWidget::onStopClicked);
+  connect(load, &Button::clicked, this,
+          &SimulationControlsWidget::onLoadMapClicked);
+  connect(save, &Button::clicked, this,
+          &SimulationControlsWidget::onSaveMapClicked);
+  connect(start, &Button::clicked, this,
+          &SimulationControlsWidget::onStartClicked);
+  connect(stop, &Button::clicked, this,
+          &SimulationControlsWidget::onStopClicked);
 }
 
 void SimulationControlsWidget::onStartClicked() {
-    emit startClicked();
+  emit startClicked();
 }
 
 void SimulationControlsWidget::onStopClicked() {
-    emit stopClicked();
+  emit stopClicked();
 }
 
 void SimulationControlsWidget::onLoadMapClicked() {
-    emit loadMapClicked();
+  emit loadMapClicked();
 }
 
 void SimulationControlsWidget::onSaveMapClicked() {
-    emit saveMapClicked();
+  emit saveMapClicked();
 }
-
-

@@ -1,20 +1,27 @@
+/**
+ * @file Window.cpp
+ * @brief This file contains declaration of Window class which is custom
+ * QMainWindow
+ * @author Mifka Radim (xmifka00)
+ * @date April 2024
+ */
 #include "GUI/Window.hpp"
-#include "GUI/MapManager.hpp"
-#include "Settings.hpp"
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QString>
+#include "GUI/MapManager.hpp"
+#include "Settings.hpp"
 
-Window::Window(QWidget *parent) : QMainWindow(parent) {
+Window::Window(QWidget* parent) : QMainWindow(parent) {
   setWindowTitle(Settings::TITLE);
   setMinimumSize(Settings::WINDOW_MIN_W, Settings::WINDOW_MIN_H);
   setStyleSheet("QMainWindow {background-color: " +
                 QString(Settings::BACKGROUND_COLOR) + ";}");
 
-  QWidget *centralWidget = new QWidget(this);
+  QWidget* centralWidget = new QWidget(this);
   setCentralWidget(centralWidget);
 
-  QHBoxLayout *layout = new QHBoxLayout(centralWidget);
+  QHBoxLayout* layout = new QHBoxLayout(centralWidget);
   layout->setContentsMargins(0, 0, 0, 0);
 
   visualizationWidget.setSizePolicy(QSizePolicy::Expanding,
@@ -37,10 +44,12 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
   connect(&controls, &ControlsWidget::loadMapClicked, this, &Window::onLoadMap);
   connect(&controls, &ControlsWidget::saveMapClicked, this, &Window::onSaveMap);
   connect(&controls, &ControlsWidget::startClicked, this, &Window::onStart);
-  connect(&controls, &ControlsWidget::startClicked, &visualizationWidget, &VisualizationWidget::onStart);
+  connect(&controls, &ControlsWidget::startClicked, &visualizationWidget,
+          &VisualizationWidget::onStart);
   connect(&controls, &ControlsWidget::stopClicked, this, &Window::onStop);
-  connect(&controls, &ControlsWidget::stopClicked, &visualizationWidget, &VisualizationWidget::onStop);
-  connect(&controls, &ControlsWidget::updateMap, this, &Window::onVisualize);
+  connect(&controls, &ControlsWidget::stopClicked, &visualizationWidget,
+          &VisualizationWidget::onStop);
+  connect(&controls, &ControlsWidget::updateMap, this, &Window::visualize);
   connect(&visualizationWidget, &VisualizationWidget::obstacleSelected,
           &controls, &ControlsWidget::onObstacleSelected);
   connect(&visualizationWidget, &VisualizationWidget::obstacleDeselected,
@@ -64,7 +73,7 @@ void Window::onLoadMap() {
   visualizationWidget.setMap(simulation.getMap());
   controls.onObstacleDeselected();
   controls.onRobotDeselected();
-  emit onVisualize();
+  emit visualize();
 }
 
 void Window::onSaveMap() {
@@ -77,13 +86,19 @@ void Window::onSaveMap() {
   MapManager::saveMap(filePath, *simulation.getMap());
 }
 
-void Window::onStart() { updateTimer.start(); }
+void Window::onStart() {
+  updateTimer.start();
+}
 
-void Window::onStop() { updateTimer.stop(); }
+void Window::onStop() {
+  updateTimer.stop();
+}
 
 void Window::onTick() {
   simulation.run();
-  emit onVisualize();
+  emit visualize();
 }
 
-void Window::onVisualize() { visualizationWidget.update(); }
+void Window::visualize() {
+  visualizationWidget.update();
+}
