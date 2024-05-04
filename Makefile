@@ -30,8 +30,8 @@ run: build $(BUILD_DIR)/$(TARGET)
 	./$(BUILD_DIR)/$(TARGET)
 
 # Target to generate documentation
-.PHONY: docs
-docs: $(DOXYFILE)
+.PHONY: doxygen
+doxygen: $(DOXYFILE)
 	doxygen $(DOXYFILE)
 
 # Pack method to create a zip archive
