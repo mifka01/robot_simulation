@@ -1,6 +1,6 @@
 /**
  * @file SpawnControlsWidget.cpp
- * @brief This file contains declaration of SpawnControlsWidget class
+ * @brief This file contains implementation of SpawnControlsWidget class
  * which is responsible for handling user interactions with the spawn controls
  * in the GUI
  * @author Mifka Radim (xmifka00)

@@ -1,6 +1,6 @@
 /**
  * @file Button.cpp
- * @brief This file contains declaration of Button class which is custom
+ * @brief This file contains implementation of Button class which is custom
  * QPushButton
  * @author Mifka Radim (xmifka00)
  * @date April 2024

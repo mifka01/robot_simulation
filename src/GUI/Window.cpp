@@ -1,6 +1,6 @@
 /**
  * @file Window.cpp
- * @brief This file contains declaration of Window class which is custom
+ * @brief This file contains implementation of Window class which is custom
  * QMainWindow
  * @author Mifka Radim (xmifka00)
  * @date April 2024

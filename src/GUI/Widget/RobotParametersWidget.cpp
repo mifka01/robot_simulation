@@ -1,6 +1,6 @@
 /**
  * @file RobotParametersWidget.cpp
- * @brief This file contains declaration of RobotParametersWidget class
+ * @brief This file contains implementation of RobotParametersWidget class
  * which is responsible for handling user interactions with the robot
  * parameters in the GUI
  * @author Mifka Radim (xmifka00)

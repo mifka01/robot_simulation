@@ -1,6 +1,6 @@
 /**
  * @file VisualizationWidget.cpp
- * @brief This file contains declaration of VisualizationWidget class
+ * @brief This file contains implementation of VisualizationWidget class
  * which is responsible for visualizing the map in the GUI
  * and handling user interactions with the map visualization
  * @author Mifka Radim (xmifka00)

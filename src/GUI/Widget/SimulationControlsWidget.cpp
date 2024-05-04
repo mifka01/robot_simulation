@@ -1,6 +1,6 @@
 /**
  * @file SimulationControlsWidget.cpp
- * @brief This file contains declaration of SimulationControlsWidget class
+ * @brief This file contains implementation of SimulationControlsWidget class
  * which is responsible for handling user interactions with the simulation
  * controls in the GUI
  * @author Mifka Radim (xmifka00)

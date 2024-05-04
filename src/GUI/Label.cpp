@@ -1,6 +1,6 @@
 /**
  * @file Label.cpp
- * @brief This file contains declaration of Label class which is custom
+ * @brief This file contains implementation of Label class which is custom
  * QLabel
  * @author Mifka Radim (xmifka00)
  * @date April 2024

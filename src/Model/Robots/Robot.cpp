@@ -1,3 +1,9 @@
+/**
+ * @file Robot.cpp
+ * @brief This file contains implementation of Robot class
+ * @author Mifka Radim (xmifka00)
+ * @date April 2024
+ */
 #include "Model/Robot/Robot.hpp"
 #include <cmath>
 

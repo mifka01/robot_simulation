@@ -1,6 +1,6 @@
 /**
  * @file ControlsWidget.cpp
- * @brief This file contains declaration of ControlsWidget class
+ * @brief This file contains implementation of ControlsWidget class
  * which is responsible for handling user interactions with the controls
  * @author Mifka Radim (xmifka00)
  * @date April 2024

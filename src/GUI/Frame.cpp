@@ -1,6 +1,6 @@
 /**
  * @file Frame.hpp
- * @brief This file contains declaration of Frame class which is custom
+ * @brief This file contains implementation of Frame class which is custom
  * QFrame
  * @author Mifka Radim (xmifka00)
  * @date April 2024

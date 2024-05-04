@@ -1,6 +1,6 @@
 /**
  * @file ManualRobotControlsWidget.cpp
- * @brief This file contains declaration of ManualRobotControlsWidget class
+ * @brief This file contains implementation of ManualRobotControlsWidget class
  * which is responsible for handling user interactions with the manual robot
  * controls
  * @author Mifka Radim (xmifka00)

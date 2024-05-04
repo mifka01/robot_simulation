@@ -1,6 +1,6 @@
 /**
  * @file MapManager.cpp
- * @brief This file contains declaration of MapManager class which is used for
+ * @brief This file contains implementation of MapManager class which is used for
  * loading and saving maps from and to json files
  * @author Mifka Radim (xmifka00)
  * @date April 2024
