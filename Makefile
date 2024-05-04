@@ -5,6 +5,7 @@ DOXYFILE := Doxyfile
 BUILD_DIR := build
 SRC_DIR := src
 INCLUDE_DIR := include
+EXAMPLES_DIR := examples
 
 # Output executable
 TARGET := robots
@@ -37,7 +38,7 @@ docs: $(DOXYFILE)
 .PHONY: pack
 pack:
 	cp README.md README.txt
-	find $(SRC_DIR) $(INCLUDE_DIR) -type f -not -path '*/\.*' -not -name '*.DS_Store' | zip -@ $(ARCHIVE) $(SRC_DIR) $(INCLUDE_DIR) Makefile README.txt LICENSE CMakeLists.txt Doxyfile
+	find $(SRC_DIR) $(INCLUDE_DIR) $(EXAMPLES_DIR) -type f -not -path '*/\.*' -not -name '*.DS_Store' | zip -@ $(ARCHIVE) $(SRC_DIR) $(INCLUDE_DIR) $(EXAMPLES_DIR) Makefile README.txt CMakeLists.txt Doxyfile
 	rm README.txt
 
 # Default target
