@@ -38,7 +38,7 @@ doxygen: $(DOXYFILE)
 .PHONY: pack
 pack:
 	cp README.md README.txt
-	find $(SRC_DIR) $(INCLUDE_DIR) $(EXAMPLES_DIR) -type f -not -path '*/\.*' -not -name '*.DS_Store' | zip -@ $(ARCHIVE) $(SRC_DIR) $(INCLUDE_DIR) $(EXAMPLES_DIR) Makefile README.md README.txt CMakeLists.txt Doxyfile
+	find $(SRC_DIR) $(INCLUDE_DIR) $(EXAMPLES_DIR) -type f -not -path '*/\.*' -not -name '*.DS_Store' | zip -@ $(ARCHIVE) $(SRC_DIR) $(INCLUDE_DIR) $(EXAMPLES_DIR) Makefile README.md README.txt CMakeLists.txt Doxyfile class_diagram.pdf
 	rm README.txt
 
 # Default target
