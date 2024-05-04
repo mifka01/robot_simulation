@@ -31,7 +31,7 @@ class Window : public QMainWindow {
   /**
    * @brief Construct a new Window object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   Window(QWidget* parent = nullptr);
 

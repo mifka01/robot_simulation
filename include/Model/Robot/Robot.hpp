@@ -34,14 +34,14 @@ class Robot {
   /**
    * @brief Construct a new Robot object
    *
-   * @param double x
-   * @param double y
-   * @param double diameter
-   * @param double viewAngle
-   * @param double rotateAngle
-   * @param double viewDistance
+   * @param x
+   * @param y
+   * @param diameter
+   * @param viewAngle
+   * @param rotateAngle
+   * @param viewDistance
    * @param bool rotateClockwise
-   * @param int speed
+   * @param speed
    */
   Robot(double x,
         double y,
@@ -114,7 +114,7 @@ class Robot {
    *
    * It sets the x position of the robot and updates the bounding box and view
    * box
-   * @param double x
+   * @param x
    */
   void setX(double x) {
     this->x = x;
@@ -127,7 +127,7 @@ class Robot {
    *
    * It sets the y position of the robot and updates the bounding box and view
    * box
-   * @param double y
+   * @param y
    */
   void setY(double y) {
     this->y = y;
@@ -141,7 +141,7 @@ class Robot {
    *
    * It sets the diameter of the robot and updates the bounding box and view
    * box
-   * @param double diameter
+   * @param diameter
    */
   virtual void setDiameter(double diameter) {
     this->diameter = diameter;
@@ -152,7 +152,7 @@ class Robot {
   /**
    * @brief Set the speed of the robot
    *
-   * @param int speed
+   * @param speed
    */
   virtual void setSpeed(int speed) { this->speed = speed; }
 
@@ -161,7 +161,7 @@ class Robot {
    *
    * It also converts the input angle from degrees to radians
    *
-   * @param double angle in degrees
+   * @param angle in degrees
    */
   virtual void setRotateAngle(double angle) {
     this->rotateAngle = angle * M_PI / 180;
@@ -171,7 +171,7 @@ class Robot {
    *
    * It also converts the input angle from degrees to radians
    *
-   * @param double angle in degrees
+   * @param angle in degrees
    */
   virtual void setViewAngle(double angle) {
     this->viewAngle = angle * M_PI / 180;
@@ -183,7 +183,7 @@ class Robot {
    *
    * It updates the view box dimensions
    *
-   * @param double distance
+   * @param distance
    */
   virtual void setViewDistance(double distance) {
     this->viewDistance = distance;

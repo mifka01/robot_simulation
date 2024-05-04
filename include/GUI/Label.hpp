@@ -18,8 +18,8 @@ class Label : public QLabel {
   /**
    * @brief Construct a new Label object
    *
-   * @param const QString& text
-   * @param QWidget* parent
+   * @param text
+   * @param parent
    */
   Label(const QString& text, QWidget* parent = nullptr);
 };

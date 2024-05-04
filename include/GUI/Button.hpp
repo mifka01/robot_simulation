@@ -18,8 +18,8 @@ class Button : public QPushButton {
   /**
    * @brief Construct a new Button object
    *
-   * @param const QString& text
-   * @param QWidget* parent
+   * @param text
+   * @param parent
    */
   Button(const QString& text, QWidget* parent = nullptr);
 };

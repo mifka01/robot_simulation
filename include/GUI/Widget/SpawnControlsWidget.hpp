@@ -23,7 +23,7 @@ class SpawnControlsWidget : public QWidget {
   /**
    * @brief Construct a new SpawnControlsWidget object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   SpawnControlsWidget(QWidget* parent = nullptr);
 

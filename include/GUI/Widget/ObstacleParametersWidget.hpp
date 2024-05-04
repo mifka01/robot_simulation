@@ -37,14 +37,14 @@ class ObstacleParametersWidget : public QWidget {
   /**
    * @brief Construct a new ObstacleParametersWidget object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   ObstacleParametersWidget(QWidget* parent = nullptr);
 
   /**
    * @brief Set the Obstacle object
    *
-   * @param std::shared_ptr<Obstacle> obstacle
+   * @param obstacle
    */
   void setObstacle(std::shared_ptr<Obstacle> obstacle);
 
@@ -52,9 +52,9 @@ class ObstacleParametersWidget : public QWidget {
    * @brief Creates a parameter control
    * in the form of a QDoubleSpinBox plus Label and adds it to the parent layout
    *
-   * @param const QString& labelText
-   * @param double minRange
-   * @param double maxRange
+   * @param labelText
+   * @param minRange
+   * @param maxRange
    * @param QHBoxLayout* parentLayout
    *
    * @return QDoubleSpinBox*
@@ -70,7 +70,7 @@ class ObstacleParametersWidget : public QWidget {
    *
    * It sets the obstacle x value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onXChanged(double value);
 
@@ -79,7 +79,7 @@ class ObstacleParametersWidget : public QWidget {
    *
    * It sets the obstacle y value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onYChanged(double value);
 
@@ -88,7 +88,7 @@ class ObstacleParametersWidget : public QWidget {
    *
    * It sets the obstacle width value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onWidthChanged(double value);
 
@@ -97,7 +97,7 @@ class ObstacleParametersWidget : public QWidget {
    *
    * It sets the obstacle height value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onHeightChanged(double value);
 
@@ -106,7 +106,7 @@ class ObstacleParametersWidget : public QWidget {
    *
    * It sets the obstacle rotation value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onRotationChanged(double value);
 
@@ -121,7 +121,7 @@ class ObstacleParametersWidget : public QWidget {
    * @brief Signal emitted when remove obstacle button is clicked
    * and obstacle should be removed
    *
-   * @param std::shared_ptr<Obstacle> obstacle
+   * @param obstacle
    */
   void removeObstacle(std::shared_ptr<Obstacle> obstacle);
 };

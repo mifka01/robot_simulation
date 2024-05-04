@@ -33,14 +33,14 @@ class VisualizationWidget : public QWidget {
   /**
    * @brief Construct a new VisualizationWidget object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   VisualizationWidget(QWidget* parent = nullptr);
 
   /**
    * @brief Set the Map object
    *
-   * @param std::shared_ptr<IMap> map
+   * @param map
    */
   void setMap(std::shared_ptr<IMap> map) { this->map = map; }
 
@@ -58,7 +58,7 @@ class VisualizationWidget : public QWidget {
   /**
    * @brief Signal emitted when obstacle is selected
    *
-   * @param std::shared_ptr<Obstacle> obstacle
+   * @param obstacle
    */
   void obstacleSelected(std::shared_ptr<Obstacle> obstacle);
 
@@ -70,7 +70,7 @@ class VisualizationWidget : public QWidget {
   /**
    * @brief Signal emitted when robot is selected
    *
-   * @param std::shared_ptr<Robot> robot
+   * @param robot
    */
   void robotSelected(std::shared_ptr<Robot> robot);
 
@@ -84,7 +84,7 @@ class VisualizationWidget : public QWidget {
    * @brief Method called when paint event is triggered
    * It draws the map and all its elements
    *
-   * @param QPaintEvent* event
+   * @param event
    */
   void paintEvent(QPaintEvent* event) override;
 
@@ -101,8 +101,8 @@ class VisualizationWidget : public QWidget {
    * It draws the obstacle on the map
    * It is called from paintEvent
    *
-   * @param QPainter& painter
-   * @param std::shared_ptr<Obstacle> obstacle
+   * @param painter
+   * @param obstacle
    */
   void drawObstacle(QPainter& painter, std::shared_ptr<Obstacle> obstacle);
   /**
@@ -110,8 +110,8 @@ class VisualizationWidget : public QWidget {
    * It draws the robot on the map
    * It is called from paintEvent
    *
-   * @param QPainter& painter
-   * @param std::shared_ptr<Robot> robot
+   * @param painter
+   * @param robot
    */
   void drawRobot(QPainter& painter, std::shared_ptr<Robot> robot);
 
@@ -121,7 +121,7 @@ class VisualizationWidget : public QWidget {
    * and selects the obstacle or robot
    * or deselects the selected obstacle or robot
    *
-   * @param QMouseEvent* event
+   * @param event
    */
   void mousePressEvent(QMouseEvent* event) override;
 
@@ -129,7 +129,7 @@ class VisualizationWidget : public QWidget {
    * @brief Method called when mouse is moved
    * It handles the mouse move event and moves the obstacle or robot
    *
-   * @param QMouseEvent* event
+   * @param event
    */
   void mouseMoveEvent(QMouseEvent* event) override;
 
@@ -138,7 +138,7 @@ class VisualizationWidget : public QWidget {
    * It handles the mouse release event
    * and stops moving the obstacle or robot
    *
-   * @param QMouseEvent* event
+   * @param event
    */
   void mouseReleaseEvent(QMouseEvent* event) override;
 };

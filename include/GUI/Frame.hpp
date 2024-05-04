@@ -18,7 +18,7 @@ class Frame : public QFrame {
   /**
    * @brief Construct a new Frame object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   Frame(QWidget* parent = nullptr);
 };

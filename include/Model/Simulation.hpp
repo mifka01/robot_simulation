@@ -36,8 +36,8 @@ class Simulation {
    *
    * @brief Check for collisions between robots and obstacles
    * @param Robot robot current robot
-   * @param std::vector<Obstacle> obstacles vector of obstacles
-   * @param std::vector<Robot> robots vector of robots
+   * @param obstacles vector of obstacles
+   * @param robots vector of robots
    * @return true if there is a collision, false otherwise
    */
   bool checkCollisions(const std::shared_ptr<Robot>& robot,
@@ -47,10 +47,9 @@ class Simulation {
   /**
    * @brief Set the map
    *
-   * @param const std::map<std::string, std::vector<std::map<std::string,
-   * double>>>& map
-   * @param int width
-   * @param int height
+   * @param map
+   * @param width
+   * @param height
    */
   void setMap(const std::map<std::string,
                              std::vector<std::map<std::string, double>>>& map,

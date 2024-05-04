@@ -23,7 +23,7 @@ class SimulationControlsWidget : public QWidget {
   /**
    * @brief Construct a new SimulationControlsWidget object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   SimulationControlsWidget(QWidget* parent = nullptr);
 

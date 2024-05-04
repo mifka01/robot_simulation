@@ -20,10 +20,10 @@ class ViewBox : public BoundingBox {
   /**
    * @brief Construct a new View Box object
    *
-   * @param Point topLeft
-   * @param Point topRight
-   * @param Point bottomRight
-   * @param Point bottomLeft
+   * @param topLeft
+   * @param topRight
+   * @param bottomRight
+   * @param bottomLeft
    */
   ViewBox(Point topLeft, Point topRight, Point bottomRight, Point bottomLeft)
       : BoundingBox(topLeft, topRight, bottomRight, bottomLeft) {}
@@ -31,9 +31,9 @@ class ViewBox : public BoundingBox {
   /**
    * @brief Rotate the view box around the center
    *
-   * @param double angle
-   * @param double centerX
-   * @param double centerY
+   * @param angle
+   * @param centerX
+   * @param centerY
    */
   void rotate(double angle, double centerX, double centerY);
 
@@ -43,12 +43,12 @@ class ViewBox : public BoundingBox {
    * This method updates the view box based on the given parameters
    * and rotates it around the center
    *
-   * @param double x
-   * @param double y
-   * @param double width
-   * @param double height
-   * @param double distance
-   * @param double angle
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   * @param distance
+   * @param angle
    */
   void update(double x,
               double y,

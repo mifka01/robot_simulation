@@ -27,18 +27,18 @@ class Obstacle {
   /**
    * @brief Construct a new Obstacle object
    *
-   * @param double x
-   * @param double y
-   * @param double width
-   * @param double height
-   * @param double rotation
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   * @param rotation
    */
   Obstacle(double x, double y, double width, double height, double rotation);
 
   /**
    * @brief Set the x position of the object
    *
-   * @param double x
+   * @param x
    */
   void setX(double x) {
     this->x = x;
@@ -48,7 +48,7 @@ class Obstacle {
   /**
    * @brief Set the y position of the object
    *
-   * @param double y
+   * @param y
    */
   void setY(double y) {
     this->y = y;
@@ -57,7 +57,7 @@ class Obstacle {
   /**
    * @brief Set the width of the object
    *
-   * @param double width
+   * @param width
    */
   void setWidth(double width) {
     this->width = width;
@@ -67,7 +67,7 @@ class Obstacle {
   /**
    * @brief Set the height of the object
    *
-   * @param double height
+   * @param height
    */
   void setHeight(double height) {
     this->height = height;
@@ -78,7 +78,7 @@ class Obstacle {
    *
    * @brief Set the rotation of the object
    *
-   * @param double rotation
+   * @param rotation
    */
   void setRotation(double rotation) {
     this->rotation = rotation * M_PI / 180;
@@ -152,9 +152,9 @@ class Obstacle {
   /**
    * @brief Rotate the obstacle around the center
    *
-   * @param double angle
-   * @param double centerX
-   * @param double centerY
+   * @param angle
+   * @param centerX
+   * @param centerY
    */
   void rotate(double angle, double centerX, double centerY);
 

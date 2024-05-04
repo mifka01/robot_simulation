@@ -29,7 +29,7 @@ class ManualRobotControlsWidget : public QWidget {
 
   /**
    * @brief Set the Robot object
-   * @param std::shared_ptr<ManualRobot> robot
+   * @param robot
    */
   void setRobot(std::shared_ptr<ManualRobot> robot);
 

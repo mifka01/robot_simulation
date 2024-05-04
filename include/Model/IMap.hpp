@@ -24,10 +24,10 @@ class IMap {
   /**
    * @brief Set the map
    *
-   * @param const std::map<std::string, std::vector<std::map<std::string,
-   * double>>>& map
-   * @param int width
-   * @param int height
+   * @param map
+   *
+   * @param width
+   * @param height
    */
   virtual void setMap(
       const std::map<std::string, std::vector<std::map<std::string, double>>>&
@@ -38,14 +38,14 @@ class IMap {
   /**
    * @brief Set the width of the map
    *
-   * @param int width
+   * @param width
    */
   virtual void setWidth(int width) = 0;
 
   /**
    * @brief Set the height of the map
    *
-   * @param int height
+   * @param height
    */
   virtual void setHeight(int height) = 0;
 
@@ -73,11 +73,11 @@ class IMap {
   /**
    * @brief Add obstacle to the map
    *
-   * @param double x
-   * @param double y
-   * @param double width
-   * @param double height
-   * @param double rotation
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   * @param rotation
    */
   virtual void addObstacle(double x,
                            double y,
@@ -88,7 +88,7 @@ class IMap {
   /**
    * @brief Remove obstacle from the map
    *
-   * @param std::shared_ptr<Obstacle> obstacle
+   * @param obstacle
    */
   virtual void removeObstacle(std::shared_ptr<Obstacle> obstacle) = 0;
 
@@ -102,14 +102,14 @@ class IMap {
   /**
    * @brief Add robot to the map
    *
-   * @param double x
-   * @param double y
-   * @param double diameter
-   * @param double viewAngle
-   * @param double rotateAngle
-   * @param double viewDistance
+   * @param x
+   * @param y
+   * @param diameter
+   * @param viewAngle
+   * @param rotateAngle
+   * @param viewDistance
    * @param bool rotateClockwise
-   * @param int speed
+   * @param speed
    * @param Robot::Type type
    */
   virtual void addRobot(double x,
@@ -125,17 +125,17 @@ class IMap {
   /**
    * @brief Remove robot from the map
    *
-   * @param std::shared_ptr<Robot> robot
+   * @param robot
    */
   virtual void removeRobot(std::shared_ptr<Robot> robot) = 0;
 
   /**
    * @brief Check if the point is out of map bounds
    *
-   * @param double x
-   * @param double y
-   * @param int w
-   * @param int h
+   * @param x
+   * @param y
+   * @param w
+   * @param h
    *
    * @return bool
    */

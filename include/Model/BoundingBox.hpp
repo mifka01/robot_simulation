@@ -61,9 +61,9 @@ class BoundingBox {
   /**
    * @brief Rotate the bounding box around the center
    *
-   * @param double angle
-   * @param double centerX
-   * @param double centerY
+   * @param angle
+   * @param centerX
+   * @param centerY
    */
   void rotate(double angle, double centerX, double centerY);
   /**
@@ -72,11 +72,11 @@ class BoundingBox {
    * It sets the new position, width, height and angle of the bounding box
    * recalculates the points
    *
-   * @param double x
-   * @param double y
-   * @param double width
-   * @param double height
-   * @param double angle
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   * @param angle
    */
   void update(double x,
               double y,
@@ -88,8 +88,8 @@ class BoundingBox {
    *
    * It moves the bounding box by dx and dy
    *
-   * @param double dx
-   * @param double dy
+   * @param dx
+   * @param dy
    */
   void move(double dx, double dy);
 

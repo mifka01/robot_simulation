@@ -44,14 +44,14 @@ class RobotParametersWidget : public QWidget {
   /**
    * @brief Construct a new RobotParametersWidget object
    *
-   * @param QWidget* parent
+   * @param parent
    */
   RobotParametersWidget(QWidget* parent = nullptr);
 
   /**
    * @brief Set the Robot object
    *
-   * @param std::shared_ptr<Robot> robot
+   * @param robot
    */
   void setRobot(std::shared_ptr<Robot> robot);
 
@@ -59,9 +59,9 @@ class RobotParametersWidget : public QWidget {
    * @brief Creates a parameter control
    * in the form of a QDoubleSpinBox plus Label and adds it to the parent layout
    *
-   * @param const QString& labelText
-   * @param double minRange
-   * @param double maxRange
+   * @param labelText
+   * @param minRange
+   * @param maxRange
    * @param QHBoxLayout* parentLayout
    *
    * @return QDoubleSpinBox*
@@ -82,7 +82,7 @@ class RobotParametersWidget : public QWidget {
    * @brief Signal emitted when remove robot button is clicked
    * and robot should be removed
    *
-   * @param std::shared_ptr<Robot> robot
+   * @param robot
    */
   void removeRobot(std::shared_ptr<Robot> robot);
 
@@ -92,7 +92,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot x value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onXChanged(double value);
 
@@ -101,7 +101,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot y value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onYChanged(double value);
 
@@ -110,7 +110,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot diameter value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onDiameterChanged(double value);
 
@@ -119,7 +119,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot view angle value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onViewAngleChanged(double value);
 
@@ -128,7 +128,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot view distance value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onViewDistanceChanged(double value);
 
@@ -137,7 +137,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot rotate angle value and emits updateMap signal
    *
-   * @param double value
+   * @param value
    */
   void onRotateAngleChanged(double value);
 
@@ -155,7 +155,7 @@ class RobotParametersWidget : public QWidget {
    *
    * It sets the robot speed value and emits updateMap signal
    *
-   * @param int value
+   * @param value
    */
   void onSpeedChanged(int value);
 };

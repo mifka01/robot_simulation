@@ -31,7 +31,7 @@ class MapManager {
    * @brief Save map to json file
    *
    * @param QString path
-   * @param IMap& map
+   * @param map
    */
   static void saveMap(QString path, IMap& map);
 

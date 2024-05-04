@@ -40,7 +40,7 @@ class ControlsWidget : public QWidget {
   /**
    * @brief Set the Map object
    *
-   * @param IMap map
+   * @param map
    */
   void setMap(std::shared_ptr<IMap> map) { this->map = map; }
 
