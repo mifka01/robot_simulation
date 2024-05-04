@@ -4,6 +4,7 @@ DOXYFILE := Doxyfile
 
 BUILD_DIR := build
 SRC_DIR := src
+INCLUDE_DIR := include
 
 # Output executable
 TARGET := robots
@@ -35,7 +36,9 @@ docs: $(DOXYFILE)
 # Pack method to create a zip archive
 .PHONY: pack
 pack:
-	find $(SRC_DIR) $(INCLUDE_DIR) -type f -not -path '*/\.*' -not -name '*.DS_Store' | zip -@ $(ARCHIVE) $(SRC_DIR) $(INCLUDE_DIR) Makefile README.md LICENSE CMakeLists.txt Doxyfile
+	cp README.md README.txt
+	find $(SRC_DIR) $(INCLUDE_DIR) -type f -not -path '*/\.*' -not -name '*.DS_Store' | zip -@ $(ARCHIVE) $(SRC_DIR) $(INCLUDE_DIR) Makefile README.txt LICENSE CMakeLists.txt Doxyfile
+	rm README.txt
 
 # Default target
 .DEFAULT_GOAL := build
