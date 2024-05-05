@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QString>
+#include <iostream>
 #include "GUI/MapManager.hpp"
 #include "Settings.hpp"
 
@@ -66,9 +67,16 @@ void Window::onLoadMap() {
   if (filePath.isEmpty()) {
     return;
   }
-  auto map = MapManager::loadMap(filePath);
-  simulation.setMap(map, visualizationWidget.width(),
-                    visualizationWidget.height());
+
+  try {
+    auto map = MapManager::loadMap(filePath);
+    simulation.setMap(map, visualizationWidget.width(),
+                      visualizationWidget.height());
+  } catch (std::exception e) {
+    std::cerr << "error: failed to load map" << std::endl;
+    simulation.setMap(MapManager::getEmptyMap(), visualizationWidget.width(),
+                      visualizationWidget.height());
+  }
   controls.setMap(simulation.getMap());
   visualizationWidget.setMap(simulation.getMap());
   controls.onObstacleDeselected();
