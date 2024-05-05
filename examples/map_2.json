@@ -4,36 +4,50 @@
             "height": 200,
             "rotation": 0,
             "width": 100,
-            "x": 371,
-            "y": 37
+            "x": 756,
+            "y": 12
         },
         {
-            "height": 200,
+            "height": 300,
             "rotation": 35,
             "width": 100,
-            "x": 76,
-            "y": 15
+            "x": 95,
+            "y": 11
         },
         {
             "height": 50,
-            "rotation": 34,
-            "width": 300,
-            "x": 139,
-            "y": 495
-        },
-        {
-            "height": 50,
-            "rotation": 26.000000000000004,
-            "width": 200,
-            "x": 600,
-            "y": 164
+            "rotation": 0,
+            "width": 100,
+            "x": 42,
+            "y": 636
         },
         {
             "height": 200,
             "rotation": 0,
             "width": 100,
-            "x": 652,
-            "y": 391
+            "x": 757,
+            "y": 256
+        },
+        {
+            "height": 200,
+            "rotation": 0,
+            "width": 100,
+            "x": 755,
+            "y": 508
+        },
+        {
+            "height": 50,
+            "rotation": 0,
+            "width": 100,
+            "x": 388,
+            "y": 302
+        },
+        {
+            "height": 10,
+            "rotation": 0,
+            "width": 10,
+            "x": 689,
+            "y": 263
         }
     ],
     "robots": [
@@ -43,10 +57,10 @@
             "rotate-clockwise": false,
             "speed": 2,
             "type": 1,
-            "view-angle": -135.00000000000182,
+            "view-angle": -225.00000000000227,
             "view-distance": 40,
-            "x": 302.3859018078021,
-            "y": 313.2724099467776
+            "x": 61.11565696504255,
+            "y": 344.5319625684744
         },
         {
             "diameter": 40,
@@ -56,8 +70,8 @@
             "type": 0,
             "view-angle": 45,
             "view-distance": 20,
-            "x": 545.793939239341,
-            "y": 314.3969696196705
+            "x": 603,
+            "y": 80
         },
         {
             "diameter": 30,
@@ -65,21 +79,21 @@
             "rotate-clockwise": false,
             "speed": 5,
             "type": 1,
-            "view-angle": -59.99999999999886,
+            "view-angle": -240.00000000000182,
             "view-distance": 40,
-            "x": 313.05463071040595,
-            "y": 653.8974596215534
+            "x": 141.38475772934362,
+            "y": 284.4744111674385
         },
         {
             "diameter": 45,
             "rotate-angle": 22,
-            "rotate-clockwise": true,
+            "rotate-clockwise": false,
             "speed": 3,
             "type": 1,
-            "view-angle": 74.00000000000091,
+            "view-angle": -342.00000000000045,
             "view-distance": 40,
-            "x": 300.5480817321032,
-            "y": 60.19536729389504
+            "x": 192.464826817229,
+            "y": 609.5234773883552
         },
         {
             "diameter": 40,
@@ -87,32 +101,32 @@
             "rotate-clockwise": false,
             "speed": 2,
             "type": 1,
-            "view-angle": -90.00000000000136,
+            "view-angle": -90.00000000000068,
             "view-distance": 40,
-            "x": 512.4142135623721,
-            "y": 432.6892500938501
+            "x": 678.6202743230322,
+            "y": 443.5420638362291
         },
         {
             "diameter": 40,
             "rotate-angle": 180,
-            "rotate-clockwise": true,
+            "rotate-clockwise": false,
             "speed": 2,
             "type": 1,
-            "view-angle": 359.9999999999982,
+            "view-angle": -3.637978807091713e-12,
             "view-distance": 40,
-            "x": 381,
-            "y": 640.0000000000214
+            "x": 499,
+            "y": 640.0000000000327
         },
         {
             "diameter": 40,
             "rotate-angle": 45,
-            "rotate-clockwise": true,
+            "rotate-clockwise": false,
             "speed": 2,
             "type": 1,
-            "view-angle": 270.00000000000045,
+            "view-angle": -6.821210263296962e-13,
             "view-distance": 40,
-            "x": 574.414213562374,
-            "y": 435.9583694396579
+            "x": 328.2649352637045,
+            "y": 644.3339110345194
         }
     ]
 }

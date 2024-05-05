@@ -1,0 +1,110 @@
+{
+    "obstacles": [
+        {
+            "height": 50,
+            "rotation": 45,
+            "width": 100,
+            "x": 279,
+            "y": 414
+        },
+        {
+            "height": 50,
+            "rotation": 0,
+            "width": 100,
+            "x": 595,
+            "y": 183
+        },
+        {
+            "height": 50,
+            "rotation": 0,
+            "width": 100,
+            "x": 286,
+            "y": 183
+        },
+        {
+            "height": 50,
+            "rotation": 0,
+            "width": 100,
+            "x": 447,
+            "y": 309
+        },
+        {
+            "height": 50,
+            "rotation": 0,
+            "width": 100,
+            "x": 389,
+            "y": 463
+        },
+        {
+            "height": 50,
+            "rotation": 0,
+            "width": 100,
+            "x": 499,
+            "y": 463
+        },
+        {
+            "height": 50,
+            "rotation": -45,
+            "width": 100,
+            "x": 611,
+            "y": 420
+        }
+    ],
+    "robots": [
+        {
+            "diameter": 40,
+            "rotate-angle": 90,
+            "rotate-clockwise": false,
+            "speed": 2,
+            "type": 1,
+            "view-angle": -134.99999999999994,
+            "view-distance": 40,
+            "x": 748.3502884254451,
+            "y": 151.76746058064577
+        },
+        {
+            "diameter": 40,
+            "rotate-angle": 45,
+            "rotate-clockwise": false,
+            "speed": 2,
+            "type": 0,
+            "view-angle": 45,
+            "view-distance": 20,
+            "x": 820,
+            "y": 332
+        },
+        {
+            "diameter": 30,
+            "rotate-angle": 30,
+            "rotate-clockwise": false,
+            "speed": 5,
+            "type": 1,
+            "view-angle": -359.9999999999998,
+            "view-distance": 40,
+            "x": 356.2980021920979,
+            "y": 666.1698729810771
+        },
+        {
+            "diameter": 45,
+            "rotate-angle": 22,
+            "rotate-clockwise": false,
+            "speed": 3,
+            "type": 1,
+            "view-angle": -185.9999999999992,
+            "view-distance": 40,
+            "x": 294.6564069053925,
+            "y": 67.21087492666938
+        },
+        {
+            "diameter": 40,
+            "rotate-angle": 45,
+            "rotate-clockwise": false,
+            "speed": 2,
+            "type": 1,
+            "view-angle": -180,
+            "view-distance": 40,
+            "x": 125.17871555019133,
+            "y": 35.82128444980961
+        }
+    ]
+}
